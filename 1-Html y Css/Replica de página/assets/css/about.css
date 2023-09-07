@@ -1,0 +1,54 @@
+@import "./../../style.css";
+
+.profile-picture {
+    width: 70px;
+    border-radius: 50%;
+}
+header{
+    position: relative;
+    background-color: var(--color-smoke);
+    display: flex;
+    flex-direction: row;
+    padding: 20px 20% 20px 20%;
+    justify-content: space-between;
+    max-height: 70px;
+}
+.header-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.title{
+    margin-left: 20px;
+}
+.title *{
+    font-size: 20px;
+    font-family: var(--font-heading);
+    font-weight: 500;
+}
+.title p{
+    margin: 0;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.nav-icon{
+    align-self: flex-end;
+}
+
+#about {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    max-height: 370px;
+}
+#about > *{ 
+    width: 50%;
+}
+#about article {
+    padding: 35px;
+}

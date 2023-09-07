@@ -1,0 +1,51 @@
+@import "./../../style.css";
+
+body {
+    padding-top: 40px;
+
+}
+
+.job-description{
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    padding: 0;
+    line-height: 1;
+    font-stretch: condensed;
+
+    font-weight:400;
+    font-size: 24px;
+    margin-top: 10px;
+    color: var(--color-black);
+}
+
+p { 
+    font-size: 13px;
+    color: var(--color-grey);
+    margin: 25px 0 30px 0;
+    line-height: 2;
+}
+
+
+nav {
+    position: absolute;
+    left: 40px;
+}
+
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+#profile-photo {
+    height: 570px;
+    position: relative;
+    top: -30px;
+}
+#signature{
+    height: 60px;
+}
+section {
+    width: 40%;
+}
