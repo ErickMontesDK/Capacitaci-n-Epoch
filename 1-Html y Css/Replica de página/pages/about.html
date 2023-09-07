@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../assets/css/about.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="./../assets/images/codificacion.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/05f4b96dc4.js" crossorigin="anonymous"></script>
     <title>About me - John Wilson's Portfolio</title>
@@ -45,7 +42,7 @@
                     iusto error! Officiis id sed esse?
                 </p>
                 <a href="">
-                    <button>Hire me now!</button>
+                    <button onclick="hireMe()">Hire me now!</button>
                 </a>
             </article>
         </section>
@@ -66,7 +63,7 @@
             <div>
                 <i class="fa-solid fa-phone icon"></i>
                 <p class="card-title">phone</p>
-                <p>+(012)3456 789</p>
+                <p>+(012) 3456 789</p>
                 <i class="fa-solid fa-phone decoration"></i>
             </div>
             <div>
@@ -134,7 +131,7 @@
             </div> 
         </section>
 
-        <section id="words">
+        <section id="words-client">
             <h2>Words from my clients</h2>
             <div class="client-card">
                 <div class="client-photo-container">
@@ -159,6 +156,79 @@
                 <p class="client-name">JOHNY TIM - Apple inc.CEO</p>
             </div>
         </section>
+
+        <section id="pricing">
+            <h2>Choose your pricing plans</h2>
+            <div class="card-price">
+                <div class="stamp">
+                    <p>$50.00</p>
+                    <hr>
+                    <p>per month</p>
+                </div>
+                <p>Web oriented</p>
+                <hr>
+                <ul>
+                    <li>Photoshop to Html code</li>
+                    <li>available for customization</li>
+                    <li>wordpress conversation</li>
+                    <li>logo design</li>
+                    <li>other options</li>
+                </ul>
+                <button onclick="signUp()">Sign up</button>
+            </div>
+            <div class="card-price">
+                <div class="stamp">
+                    <p>$80.00</p>
+                    <hr>
+                    <p>per month</p>
+                </div>
+                <p>marketing</p>
+                <hr>
+                <ul>
+                    <li>Photoshop to Html code</li>
+                    <li>available for customization</li>
+                    <li>wordpress conversation</li>
+                    <li>logo design</li>
+                    <li>other options</li>
+                </ul>
+                <button onclick="signUp()">Sign up</button>
+            </div>
+            <div class="card-price">
+                <div class="stamp">
+                    <p>$120.00</p>
+                    <hr>
+                    <p>per month</p>
+                </div>
+                <p>photography</p>
+                <hr>
+                <ul>
+                    <li>Photoshop to Html code</li>
+                    <li>available for customization</li>
+                    <li>wordpress conversation</li>
+                    <li>logo design</li>
+                    <li>other options</li>
+                </ul>
+                <button onclick="signUp()">Sign up</button>
+            </div>
+            <div class="card-price">
+                <div class="stamp">
+                    <p>$200.00</p>
+                    <hr>
+                    <p>per month</p>
+                </div>
+                <p>game design</p>
+                <hr>
+                <ul>
+                    <li>Photoshop to Html code</li>
+                    <li>available for customization</li>
+                    <li>wordpress conversation</li>
+                    <li>logo design</li>
+                    <li>other options</li>
+                </ul>
+                <button onclick="signUp()">Sign up</button>
+            </div>
+        </section>
+
     </main>
     <footer>
         <p>Copyright © <b>Gary Raptish</b>. 
@@ -173,6 +243,15 @@
             <a href="https://dribbble.com/"><i class="fa-solid fa-basketball"></i></a>
         </p>
     </footer>
-    
+
+    <script>
+        function hireMe() {
+            alert("You hire me! There is not turning back!");
+        }
+
+        function signUp() {
+            alert("Thx for your money! I really needed it! :(");
+        }
+    </script>
 </body>
 </html>

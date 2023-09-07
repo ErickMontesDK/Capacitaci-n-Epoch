@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Oswald:wght@300;400;500&display=swap');
 
 :root {
     --color-black:#343434;
@@ -9,6 +9,8 @@
     --color-darker:#131313;
 
     --font-heading:'Oswald', sans-serif;
+    --font-button: 'Lato', sans-serif;
+
 }
 
 body {
@@ -63,6 +65,10 @@ nav {
 nav ul {
     display: none;
 }
+nav li{
+    font-family: var(--font-button);
+    text-transform: uppercase;
+}
 .nav-icon{
     font-size: 1.5em;
 }
@@ -80,12 +86,12 @@ b {
     font-family: inherit;
 }
 button{
+    font-family: var(--font-button);
     background-color: var(--color-black);
     color: whitesmoke;
     padding: 15px;    
     border: none;
     text-transform: uppercase;
-    font-family: var(--font-heading);
 }
 button:hover{
     background-color: var(--color-blue);

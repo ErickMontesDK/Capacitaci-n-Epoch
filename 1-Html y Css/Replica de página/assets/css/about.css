@@ -44,7 +44,7 @@ nav {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    max-height: 370px;
+    max-height: 500px;
 }
 #about > *{ 
     width: 50%;
@@ -112,7 +112,7 @@ nav {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 40px 17% 40px 17%;
+    padding: 60px 17% 40px 17%;
     justify-content: space-between;
 }
 #knowledges>div {
@@ -155,14 +155,15 @@ nav {
     font-weight: bolder;
 }
 
-#words {
+
+#words-client {
     background-color: var(--color-darker);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 60px 0 50px 0;
 }
-#words h2{
+#words-client h2{
     width: 100%;
     text-align: center;
     color: whitesmoke;
@@ -209,3 +210,77 @@ nav {
     color: var(--color-blue);
     margin: 0;
 }
+
+#pricing {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px;
+}
+
+#pricing h2{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+}
+#pricing div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.card-price {
+    border: 2px solid var(--color-grey);
+    margin: 0 15px 0 15px;
+    padding: 30px 20px 30px 20px;
+}
+.card-price p, .card-price li{
+    text-transform: capitalize;
+    text-align: center;
+}
+.stamp {
+    border-radius: 50%;
+    border: 5px solid white;
+    outline: 3px solid var(--color-black);
+    background-color: var(--color-black);
+    width: 55%;
+    aspect-ratio: 1/1;
+    justify-content: center;
+}
+.stamp p{
+    margin: 0;
+    line-height: 1;
+    color: whitesmoke;
+}
+.stamp p:first-of-type{
+    font-family: var(--font-heading);
+    font-size: 23px;
+}
+.stamp hr {
+    width: 33%;
+}
+
+.card-price ul{
+    list-style-type: none;
+    margin: 0 0 30px 0;
+    padding: 0;
+    font-size: 13px;
+    color: var(--color-grey);
+    line-height: 2;
+}
+.card-price> hr{
+    color: var(--color-black);
+    width: 80%;
+    margin: 0 0 30px 0;
+}
+.card-price>p:first-of-type {
+    text-transform: uppercase;
+    color: var(--color-black);
+    font-weight: bolder;
+    margin: 15px 0 10px 0;
+}
+.card-price button{
+    padding: 6px 20px 6px 20px;
+}
+
+
