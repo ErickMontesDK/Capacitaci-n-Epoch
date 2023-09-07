@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap');
 
 :root {
-    --color-black:#333333;
+    --color-black:#343434;
     --color-blue: #44b3b0;
     --color-grey: #646464;
+    --color-silver: #3B3B3B;
     --color-smoke: #F5F5F5;
 
     --font-heading:'Oswald', sans-serif;

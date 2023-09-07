@@ -52,3 +52,106 @@ nav {
 #about article {
     padding: 35px;
 }
+
+#info-cards {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 200px;
+}
+#info-cards>div{
+    flex-grow: 1;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#info-cards div:nth-child(odd){
+    background-color: var(--color-black);
+
+}
+#info-cards div:nth-child(even){
+    background-color: var(--color-silver);
+}
+
+#info-cards i{
+    color: var(--color-grey);
+}
+#info-cards .icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+#info-cards .decoration {
+    position: absolute;
+    font-size: 110px;
+    right: -20px;
+    bottom: -30px;
+    z-index: 0;
+    opacity: 0.35;
+}
+#info-cards div p{
+    margin: 0 0 10px 0;
+    line-height: 1;
+    text-transform: uppercase;
+    color: whitesmoke;
+    z-index: 1;
+}
+#info-cards .card-title{
+    font-size: 2em;
+    font-stretch: expanded;
+    font-weight: 500;
+    color: var(--color-blue);
+}
+
+#knowledges{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 40px 17% 40px 17%;
+    justify-content: space-between;
+}
+#knowledges>div {
+    position: relative;
+    box-sizing: border-box;
+    width: 32%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-between;
+    overflow: hidden;
+}
+#knowledges .icon-know{
+    text-align: center;
+    font-size: 50px;
+    height: 100%;
+    width: 25%;
+    color: var(--color-black);
+}
+
+#knowledges .decoration-know{
+    position: absolute;
+    right: 20px;
+    bottom: 50%;
+    transform: translateY(50%);
+    font-size: 100px;
+    color: var(--color-grey);
+    opacity: .3;
+}
+
+
+#knowledges div p{
+    line-height: 2;
+    margin: 0;
+    width: 70%;
+}
+#knowledges div p:first-of-type{
+    text-transform: uppercase;
+    color: var(--color-black);
+    font-weight: bolder;
+}
