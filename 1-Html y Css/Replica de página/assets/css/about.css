@@ -144,7 +144,6 @@ nav {
     opacity: .3;
 }
 
-
 #knowledges div p{
     line-height: 2;
     margin: 0;
@@ -154,4 +153,59 @@ nav {
     text-transform: uppercase;
     color: var(--color-black);
     font-weight: bolder;
+}
+
+#words {
+    background-color: var(--color-darker);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 60px 0 50px 0;
+}
+#words h2{
+    width: 100%;
+    text-align: center;
+    color: whitesmoke;
+}
+.client-photo-container{
+    position: relative;
+    border-radius: 50% 50% 0 0;
+    padding: 2px 2px  0px 2px;
+    background-color: whitesmoke;
+    position: absolute;
+    transform: translateY(-50%);
+}
+.crop-circle{
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background-color: var(--color-darker);
+    bottom: -.5px;
+    left: 0;
+    z-index: 0;
+}
+.client-photo{
+    position: relative;
+    height: 45px;
+    border-radius: 50%;
+    border: 8px solid var(--color-darker); 
+    z-index: 2;
+}
+.client-card{
+    position: relative;
+    border: 2px solid whitesmoke;
+    margin: 130px 15px 15px 15px;
+    padding: 0 40px 15px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.client-card p:first-of-type{
+    color: whitesmoke;
+    margin: 40px 0 10px 0;
+    text-align: center;
+}
+.client-card p:last-of-type{
+    color: var(--color-blue);
+    margin: 0;
 }
