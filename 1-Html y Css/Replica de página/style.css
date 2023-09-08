@@ -50,6 +50,10 @@ p {
     margin: 25px 0 30px 0;
     line-height: 2;
 }
+li{
+    font-size: 13px;
+    color: var(--color-grey); 
+}
 
 a{
     color: inherit;
@@ -85,7 +89,7 @@ b {
     font-weight:inherit;
     font-family: inherit;
 }
-button{
+button, .button{
     font-family: var(--font-button);
     background-color: var(--color-black);
     color: whitesmoke;
@@ -93,10 +97,51 @@ button{
     border: none;
     text-transform: uppercase;
 }
-button:hover{
+button:hover, .button:hover{
     background-color: var(--color-blue);
     cursor:pointer;
 }
+
+.profile-picture {
+    width: 70px;
+    border-radius: 50%;
+}
+header{
+    position: relative;
+    background-color: var(--color-smoke);
+    display: flex;
+    flex-direction: row;
+    padding: 20px 20% 20px 20%;
+    justify-content: space-between;
+    max-height: 70px;
+}
+.header-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.header-card .title{
+    margin-left: 20px;
+}
+.header-card .title *{
+    font-size: 20px;
+    font-family: var(--font-heading);
+    font-weight: 500;
+}
+.header-card .title p{
+    margin: 0;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+header nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+header .nav-icon{
+    align-self: flex-end;
+}
+
 footer{
     background-color: var(--color-smoke);
     display: flex;

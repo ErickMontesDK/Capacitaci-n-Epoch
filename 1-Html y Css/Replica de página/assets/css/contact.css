@@ -1,0 +1,76 @@
+@import "./../../style.css";
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+#map {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20% 40px 20%;
+}
+#map iframe{
+    width: 100%;
+    aspect-ratio: 2.5/1;
+}
+
+.contact-icons i{
+    display: inline-block;
+    background-color: var(--color-black);
+    text-align: center;
+    font-size: 15px;
+    color: whitesmoke;
+    border-radius: 50%;
+    height: 35px;
+    aspect-ratio: 1/1;
+    line-height: 35px;
+}
+#form-section{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20% 40px 20%;
+}
+#form-section h2{
+    margin-bottom: 20px;
+}
+#form-section>div {
+    display: inherit;
+    flex-direction: column;
+}
+#form-section .contact{
+    width: 30%;
+}
+#form-section .form{
+    width: 60%;
+}
+.contact ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.contact ul li{
+    margin-bottom:20px ;
+    display: flex;
+}
+.contact ul i{
+    font-size: 20px;
+    display: block;
+    width: 40px;
+}
+.contact span{
+    display:block;
+}
+.form input:not([type="submit"]), .form textarea{
+    width: 100%;
+    margin-bottom: 25px;
+    padding-bottom: 7px;
+    border: 0px;
+    border-bottom: 1px solid #00000035;
+}
+.form input::placeholder, .form textarea::placeholder{
+    text-transform: uppercase;
+
+}
+.form .button{
+    padding: 6px 20px 6px 20px;
+}
