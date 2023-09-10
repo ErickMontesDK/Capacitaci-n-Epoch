@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../assets/css/about.css">
     <link rel="shortcut icon" href="./../assets/images/codificacion.png" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/05f4b96dc4.js" crossorigin="anonymous"></script>
     <title>About me - John Wilson's Portfolio</title>
 </head>
 <body>
@@ -14,21 +13,21 @@
             <img src="./../assets/images/social-picture-profile.jpg" alt="profile picture"
             class="profile-picture">
             <div class="title">
-                <h2>Profile</h2>
+                <h1>Profile</h1>
                 <p>about myself</p>
             </div>
         </div>
         <nav>
             <i class="fa-solid fa-bars nav-icon"></i>
             <ul>
-                <li><a href="./../index.html">Home</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <a href="./../index.html"><li>Home</li></a>
+                <a href="./contact.html"><li>Contact</li></a>
             </ul>
         </nav>
     </header>
     <main>
-        <section id="about">
-            <img src="./../assets/images/cafeteria.png" alt="me at the cafeteria">
+        <section class="about">
+            <img src="./../assets/images/cafeteria.png" alt="me at the cafeteria" class="about-photo">
             <article>
                 <h2>About me</h2>
                 <p>
@@ -47,7 +46,7 @@
             </article>
         </section>
 
-        <section id="info-cards">
+        <section class="info-cards">
             <div>
                 <i class="fa-regular fa-user icon"></i>
                 <p class="card-title">name</p>
@@ -80,7 +79,7 @@
             </div>
         </section>
 
-        <section id="knowledges">
+        <section class="knowledges">
             <div>
                 <i class="fa-solid fa-wand-magic-sparkles icon-know"></i>
                 <p>web design</p>
@@ -131,7 +130,7 @@
             </div> 
         </section>
 
-        <section id="words-client">
+        <section class="words-client">
             <h2>Words from my clients</h2>
             <div class="client-card">
                 <div class="client-photo-container">
@@ -157,7 +156,7 @@
             </div>
         </section>
 
-        <section id="pricing">
+        <section class="pricing">
             <h2>Choose your pricing plans</h2>
             <div class="card-price">
                 <div class="stamp">
@@ -231,11 +230,11 @@
 
     </main>
     <footer>
-        <p>Copyright © <b>Gary Raptish</b>. 
+        <p>Copyright © <span class="blue-text">Gary Raptish</span>. 
             All rights reserved<br>
-            Made with love by <b>Themeton</b>
+            Made with love by <span class="blue-text">Themeton</span>
         </p>
-        <p id="social-icons">
+        <p class="social-icons">
             <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="https://twitter.com/"><i class="fa-brands fa-twitter"></i></a>
             <a href="https://www.pinterest.com.mx/"><i class="fa-brands fa-pinterest"></i></a>
@@ -244,6 +243,8 @@
         </p>
     </footer>
 
+</body>
+    <script src="https://kit.fontawesome.com/05f4b96dc4.js" crossorigin="anonymous"></script>
     <script>
         function hireMe() {
             alert("You hire me! There is not turning back!");
@@ -253,5 +254,4 @@
             alert("Thx for your money! I really needed it! :(");
         }
     </script>
-</body>
 </html>

@@ -10,7 +10,6 @@
 
     --font-heading:'Oswald', sans-serif;
     --font-button: 'Lato', sans-serif;
-
 }
 
 body {
@@ -30,22 +29,20 @@ h1, h2, h3{
     padding: 0;
     line-height: 1;
     font-stretch: condensed;
+    margin: 0;
 }
 
 h1 {
     font-weight:bold;
     font-size: 60px;
-    margin: 0;
 }
 h2 { 
     font-weight:400;
     font-size: 27px;
-    margin: 0;
     color: var(--color-blue);
 }
 
 p { 
-    font-size: 13px;
     color: var(--color-grey);
     margin: 25px 0 30px 0;
     line-height: 2;
@@ -72,6 +69,17 @@ nav ul {
 nav li{
     font-family: var(--font-button);
     text-transform: uppercase;
+    border: 1px solid #00000010;
+    width: 100px;
+    list-style-position: inside;
+    padding-left: 10px;
+}
+nav li:hover{
+    color: white;
+    background-color: var(--color-blue);
+}
+nav li a:hover{
+    color: inherit;
 }
 .nav-icon{
     font-size: 1.5em;
@@ -84,11 +92,12 @@ nav:hover  ul{
     display:initial;
 }
 
-b {
+.blue-text{
     color: var(--color-blue);
     font-weight:inherit;
     font-family: inherit;
 }
+
 button, .button{
     font-family: var(--font-button);
     background-color: var(--color-black);
@@ -96,10 +105,12 @@ button, .button{
     padding: 15px;    
     border: none;
     text-transform: uppercase;
+    font-size: 13px;
 }
 button:hover, .button:hover{
     background-color: var(--color-blue);
     cursor:pointer;
+    color: whitesmoke;
 }
 
 .profile-picture {
@@ -128,6 +139,9 @@ header{
     font-family: var(--font-heading);
     font-weight: 500;
 }
+.header-card h1 {
+    color: var(--color-blue);
+}
 .header-card .title p{
     margin: 0;
     font-weight: 400;
@@ -153,9 +167,12 @@ footer p {
     text-align: center;
     margin: 0px 0 15px 0;
 }
-#social-icons {
+.social-icons {
     margin: 0;
     font-size: 1.5em;
     color: var(--color-grey);
     opacity: .5;
+}
+.social-icons a{
+    margin: 0 5px 0 5px;
 }

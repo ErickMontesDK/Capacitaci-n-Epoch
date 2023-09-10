@@ -26,6 +26,9 @@ main {
     aspect-ratio: 1/1;
     line-height: 35px;
 }
+.contact-icons i:hover{
+    background-color: var(--color-blue);
+}
 #form-section{
     display: flex;
     justify-content: space-between;
@@ -59,14 +62,20 @@ main {
 }
 .contact span{
     display:block;
+    width: 100%;
 }
 .form input:not([type="submit"]), .form textarea{
     width: 100%;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
     padding-bottom: 7px;
     border: 0px;
     border-bottom: 1px solid #00000035;
 }
+.form input:not([type="submit"]):hover, .form textarea:hover{
+    border-bottom: 3px solid #00000090;
+}
+
+
 .form input::placeholder, .form textarea::placeholder{
     text-transform: uppercase;
 

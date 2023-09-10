@@ -1,26 +1,25 @@
 @import "./../../style.css";
 
-#about {
+.about {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    max-height: 500px;
 }
-#about > *{ 
-    width: 50%;
+
+.about > .about-photo {
+    max-width: 50%;
 }
-#about article {
+.about article {
     padding: 35px;
 }
 
-#info-cards {
+.info-cards {
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 200px;
 }
-#info-cards>div{
-    flex-grow: 1;
+.info-cards>div{
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -31,22 +30,35 @@
     align-items: center;
 }
 
-#info-cards div:nth-child(odd){
+.info-cards div:nth-child(odd){
     background-color: var(--color-black);
 
 }
-#info-cards div:nth-child(even){
+.info-cards div:nth-child(even){
     background-color: var(--color-silver);
 }
 
-#info-cards i{
+.info-cards i{
     color: var(--color-grey);
 }
-#info-cards .icon {
+.info-cards .icon {
     font-size: 40px;
     margin-bottom: 15px;
 }
-#info-cards .decoration {
+.info-cards>div:hover .icon {
+    font-size: 70px;
+    animation-name: grow-icon;
+    animation-duration: .25s;
+}
+.info-cards>div:hover {
+    background-color: var(--color-blue);
+}
+@keyframes grow-icon {
+    from {font-size:40px}
+    to {font-size: 70px;}
+}
+
+.info-cards .decoration {
     position: absolute;
     font-size: 110px;
     right: -20px;
@@ -54,28 +66,30 @@
     z-index: 0;
     opacity: 0.35;
 }
-#info-cards div p{
+.info-cards div p{
     margin: 0 0 10px 0;
     line-height: 1;
     text-transform: uppercase;
     color: whitesmoke;
     z-index: 1;
 }
-#info-cards .card-title{
+.info-cards .card-title{
     font-size: 2em;
-    font-stretch: expanded;
     font-weight: 500;
     color: var(--color-blue);
 }
+.info-cards>div:hover :is(.card-title, .icon, .decoration){
+    color: var(--color-smoke);
+}
 
-#knowledges{
+.knowledges{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     padding: 60px 17% 40px 17%;
     justify-content: space-between;
 }
-#knowledges>div {
+.knowledges>div {
     position: relative;
     box-sizing: border-box;
     width: 32%;
@@ -84,17 +98,101 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-content: space-between;
-    overflow: hidden;
 }
-#knowledges .icon-know{
+.knowledges .icon-know{
     text-align: center;
     font-size: 50px;
     height: 100%;
     width: 25%;
     color: var(--color-black);
 }
+.knowledges>div:hover .icon-know.fa-wand-magic-sparkles{
+    animation-name: icon-wand;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+.knowledges>div:hover .icon-know.fa-react{
+    animation-name: icon-react;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+.knowledges>div:hover .icon-know.fa-camera-retro{
+    animation-name: icon-camara;
+    animation-duration: 0.5s;
+    animation-timing-function:linear;
+}
+.knowledges>div:hover .icon-know.fa-globe{
+    animation-name: icon-globe;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+}
+.knowledges>div:hover .icon-know.fa-rocket{
+    animation-name: icon-rocket;
+    animation-duration: .85s;
+    animation-timing-function: ease-in;
+}
+.knowledges>div:hover .icon-know.fa-gamepad{
+    animation-name: icon-game;
+    animation-duration: 2s;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
 
-#knowledges .decoration-know{
+@keyframes icon-wand{
+    0% {    transform: rotateZ(00deg);}
+    25% {    transform: rotateZ(10deg);}
+    50% {    transform: rotateZ(5deg);}
+    75% {    transform: rotateZ(15deg);}
+    100% {    transform: rotateZ(0deg);}
+}
+@keyframes icon-react{
+    0% {    transform: rotateY(00deg);}
+    25% {    transform: rotateY(360deg);}
+    50% {    transform: rotateY(0deg);}
+    75% {    transform: rotateY(360deg);}
+    100% {    transform: rotateY(0deg);}
+}
+@keyframes icon-camara{
+    0% {    color: var(--color-black);}
+    40% {   color: var(--color-black);}
+    48% {   color: rgb(255, 255, 121);}
+    58% {   color: var(--color-black);}
+    82% {   color: var(--color-black);}
+    90% {   color: rgb(255, 255, 121);}
+    100% {  color: var(--color-black);}
+}
+@keyframes icon-globe{
+    0% {    opacity: 0;}
+    24% {   opacity: 0;}
+    25% {   opacity: .25;}
+    49% {   opacity: .25;}
+    50% {   opacity: .50;}
+    74% {   opacity: .50;}
+    75% {  opacity: .75;}
+    99% {  opacity: .75;}
+    100% {  opacity: 1;}
+}
+
+@keyframes icon-rocket{
+    0% {    transform: translateY(70%);
+        opacity: 0;
+        color: red;}
+    40% {   color: orange;
+    opacity: .8;}
+    100% {  color: var(--color-darker);
+        opacity: 1;}
+}
+
+@keyframes icon-game{
+    0% {    transform: rotateZ(00deg);}
+    20% {    transform: rotateZ(10deg); color: greenyellow;}
+    40% {    transform: rotateZ(-10deg); color: cyan}
+    60% {    transform: rotateZ(10deg); color: purple}
+    80% {    transform: rotateZ(-10deg); color: red}
+    100% {    transform: rotateZ(0deg); }
+}
+
+.knowledges .decoration-know{
     position: absolute;
     right: 20px;
     bottom: 50%;
@@ -104,26 +202,26 @@
     opacity: .3;
 }
 
-#knowledges div p{
+.knowledges div p{
     line-height: 2;
     margin: 0;
     width: 70%;
 }
-#knowledges div p:first-of-type{
+.knowledges div p:first-of-type{
     text-transform: uppercase;
     color: var(--color-black);
     font-weight: bolder;
 }
 
 
-#words-client {
+.words-client {
     background-color: var(--color-darker);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 60px 0 50px 0;
 }
-#words-client h2{
+.words-client h2{
     width: 100%;
     text-align: center;
     color: whitesmoke;
@@ -170,8 +268,29 @@
     color: var(--color-blue);
     margin: 0;
 }
+.client-card:hover p:last-of-type{
+    color: whitesmoke;
+    background-color: var(--color-blue);
+    animation: clientname;
+    animation-duration: .5s;
+    animation-timing-function: ease-in;
+    font-weight: 500;
+    padding: 0 20px 0 20px;
+}
+@keyframes clientname {
+    from { background-color: #00000000;
+        color: var(--color-blue);
+        padding: 0px;
 
-#pricing {
+    }
+
+    to { background-color: var(--color-blue);
+    color: whitesmoke;
+    font-weight: 500;
+    padding: 0 20px 0 20px;}
+}
+
+.pricing {
     display: flex;
     flex-direction: row; 
     flex-wrap: wrap;
@@ -179,12 +298,12 @@
     padding: 40px;
 }
 
-#pricing h2{
+.pricing h2{
     width: 100%;
     text-align: center;
     margin-bottom: 40px;
 }
-#pricing div {
+.pricing div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -226,6 +345,8 @@
     padding: 0;
     line-height: 2;
 }
+
+
 .card-price> hr{
     color: var(--color-black);
     width: 80%;
@@ -237,8 +358,26 @@
     font-weight: bolder;
     margin: 15px 0 10px 0;
 }
+
 .card-price button{
     padding: 6px 20px 6px 20px;
 }
 
-
+.card-price:hover {
+    background-color: var(--color-black);
+    border-color: var(--color-darker);
+    animation-name: box-color;
+    animation-duration: .5s;
+}
+@keyframes box-color {
+    from { background-color: #00000000;}
+    to  { background-color: var(--color-black);}
+    
+}
+.card-price:hover :is(p,li){
+    color: whitesmoke;
+}
+.card-price:hover button:not(:hover){
+    color: var(--color-black);
+    background-color: whitesmoke;
+}
