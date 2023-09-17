@@ -1,0 +1,33 @@
+:root {
+    --color-black: #172026;
+    --color-blue: #5FCDD9;
+    --color-aqua: #027373;
+    --color-lightgreen: #04BFAD;
+    --color-green: #04BF9D;
+}
+
+.navbar {
+    position: relative;
+}
+.navbar-brand {
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.navbar-brand img{
+    position: relative;
+    height: 300%;
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--color-blue) !important;
+}
+h4 {
+    font-size: 1.2em;
+}
+p {
+    font-size: 1.1em;
+}
