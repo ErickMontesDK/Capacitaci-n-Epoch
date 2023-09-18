@@ -4,12 +4,7 @@
 .presentation .card-text {
     background-color: #00000070;
 }
-/* .presentation .card{
-    max-height: 550px;
-}
-.presentation .card img{
-    height: 100%;
-} */
+
 .presentation .card a{
     aspect-ratio: 1/1;
     height: 40px;
@@ -17,4 +12,23 @@
 }
 .bio-info .card i{
     font-size: 3.5em;
+}
+.services .carousel img{
+    object-fit: cover;
+    aspect-ratio: 16/9;
+}
+
+.carousel-item img {
+    filter:brightness(50%); 
+}
+.youtube-video{
+    aspect-ratio: 16/9;
+}
+
+@media screen and (max-width: 360px) {
+    .carousel-caption *{
+        font-size: 0.9em !important;
+        font-style: italic;
+        margin: 1px;
+    }
 }
