@@ -1,0 +1,17 @@
+@import "./../../custom.css";
+
+.books{
+    aspect-ratio: 100/80;
+}
+.courses .card *{
+    color: whitesmoke !important;
+}
+.nav .active {
+    background-color: var(--color-blue) !important;
+}
+.hobbies .card p *{
+    font-size: 1em;
+}
+.hobbies h4{
+    font-size: 2em;
+}
