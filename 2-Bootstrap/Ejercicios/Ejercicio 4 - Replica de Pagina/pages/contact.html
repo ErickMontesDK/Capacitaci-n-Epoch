@@ -97,6 +97,9 @@
                             <a href="https://www.github.com/" class="btn btn-outline-info">
                                 <i class="fa-brands fa-github-alt"></i>
                             </a>
+                            <a href="https://www.youtube.com/" class="btn btn-outline-info">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
                         </p>
                     </li>
                 </ol>
@@ -118,27 +121,48 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" id="contact-form">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="Name">Name:</label>
-                                <input type="text" name="Name" id="Name" placeholder="Your name" class="form-control" required>
+                    <form action="" id="contact-form" class="form-horizontal">
+                            <div class="form-group row"> 
+                                <label for="Name" class="col-sm-2 control-label">Name:</label>
+                                <div class="col-sm-10">
+                                    <input  type="text" name="Name" id="Name" placeholder="Your name" class="form-control" required>
+                                </div>
                             </div>
-                            <div class="form-group col md-6">
-                                <label for="Email">Email:</label>
-                                <input type="email" name="Email" id="Email" placeholder="Your email" class="form-control" required>
+                            <div class="form-group row"> 
+                                <label for="Email" class="col-sm-2 control-label">Email:</label>
+                                <div class="col-sm-10">
+                                    <input type="email" name="Email" id="Email" placeholder="Your email" class="form-control" required>
+                                </div>
                             </div>
+                            <div class="form-group row"> 
+                                <label for="Phone" class="col-sm-2 control-label">Phone:</label>
+                                <div class="col-sm-5 mb-2 ">
+                                    <input type="tel" name="Phone" id="Phone" placeholder="Phone number" class="form-control">
+                                </div>
+
+                                <label for="Age" class="col-sm-2 control-label">Age:</label>
+                                <div class="col-3">
+                                    <input type="number" class="form-control" name="Age" id="Age" placeholder="00" min="1" max="100" pattern="^[0-9]+">
+                                </div>
+                            </div>
+                            <div class="form-group row"> 
+                                <label for="Subject" class="col-sm-2 control-label">Subject:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="Subject" id="Subject" placeholder="Your subject" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row"> 
+                                <label for="Message" class="col-sm-2 control-label">Message:</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="Message" id="Message" cols="30" rows="5" placeholder="Write your message:"></textarea>
+                                </div>
+                            </div>
+
+                        <!-- <div class="form-group col-md-12">
+                            <label for="Email">Email:</label>
+                            <input type="email" name="Email" id="Email" placeholder="Your email" class="form-control" required>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="Phone">Phone number:</label>
-                                <input type="tel" name="Phone" id="Phone" placeholder="Phone number" class="form-control">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="Age">Age:</label><br>
-                                <input type="number" class="form-control" name="Age" id="Age" placeholder="00" min="1" max="100" pattern="^[0-9]+">
-                            </div>
-                        </div>
+                        
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="Subject">Subject:</label>
@@ -148,9 +172,9 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="Message">Your message</label>
-                                <textarea class="form-control" name="Message" id="Message" cols="30" rows="5" placeholder="Write your message"></textarea>
+                                <textarea class="form-control" name="Message" id="Message" cols="30" rows="5" placeholder="Write your message:"></textarea>
                             </div>
-                        </div>
+                        </div> -->
                         
                         
                         
