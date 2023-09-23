@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="container">
+    <h1 class="my-3">Cálculo de áreas y perímetros</h1>
+
+    <form  id="figures_calculations" action="" class="row row-cols-md-4 row-cols-sm-2 row-cols-1">
+
+        <div class="col mb-3" id="figure-options">
+            <p class="form-text text-muted">Selecciona la figura</p>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="figure" id="triangle" value="triangle">
+                <label class="form-check-label">Triángulo</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="figure" id="rectangle" value="rectangle">
+                <label class="form-check-label" for="rectangle">Rectángulo</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="figure" id="poligon" value="poligon">
+                <label class="form-check-label" for="poligon">Polígono regular</label>
+            </div>
+        </div>
+
+        
+        <div class="col mb-3" id="operation-options">
+            <p class="form-text text-muted">Escoge la operación a calcular</p>
+            <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="area" id="area" value="area">
+                    <label class="form-check-label" for="rectangle">Área</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="perimeter" id="perimeter" value="perimeter">
+                <label class="form-check-label" for="triangle">Perímetro</label>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <p class="form-text text-muted">Entra sus valores</p>
+            <div id="inputs-container">
+                
+            </div>
+        </div>
+        <div class="col mb-3">
+            <button type="submit" class="btn btn-primary my-4">Enviar</button>
+            <div id="results">
+                
+            </div>
+        </div>
+    </form>
+    
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>  
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const input_template = `<div class="form-group row">
+                    <label for="" class="col-4 "></label>
+                    <input type="number" class="form-control col-8" name="" id="" placeholder="00">
+                </div>`;
+
+        $(document).ready(function(){
+            let figure = "";
+            let operation_selected = []
+
+            $("#figure-options input:radio").change(function(){
+                figure = $("input:radio:checked").val();
+
+                inputs_required()
+            })
+
+            $("#operation-options input:checkbox").change(function(){
+                operation_selected = [];
+                const operations = $("input:checkbox:checked");
+
+                for(operation of operations){
+                    operation_selected.push($(operation).val());
+                }
+                
+                inputs_required()
+            })
+
+            const createInput = (label,property) => {
+                const new_input = $(input_template).clone()
+
+                new_input.find("label").attr("for", property).text(label);
+                new_input.find("input").attr("id", property).attr("name", property)
+                return new_input;
+            }
+
+            const inputs_required = () =>{
+                const previous_inputs = $("#inputs-container").clone().children("div");
+                
+                
+                if(figure !== "" && operation_selected.length > 0 ){
+                    
+                    let new_inputs = validations[figure].createInputs();
+
+                    if(previous_inputs.html() !== new_inputs.html()){
+                        $("#inputs-container").html(new_inputs);
+                    } 
+                } else {
+                    $("#inputs-container").empty();
+                }
+            }
+
+
+            $("#figures_calculations").submit(function(){
+                event.preventDefault();
+                $("#results").empty();
+
+                if(figure !== "" && operation_selected.length > 0 ){
+                    validations[figure].validation()
+                }
+            })
+
+            const addResult = (value, operation) => {
+                $("#results").append(`<p>${operation}: ${value}</p>`);
+            }
+
+
+            const validations = {
+                triangle: {
+                    createInputs(){
+                        let new_inputs = $("#inputs-container").clone().empty();
+                        new_inputs.append(createInput("Base","base")) ;
+                        new_inputs.append(createInput("Altura","height"));
+                        return new_inputs;
+                    },
+                    validation(){
+                        let base = $("input#base").val();
+                        let height = $("input#height").val();
+                        base = parseFloat(base);
+                        height = parseFloat(height);
+                        
+                        if(base > 0 && height > 0 && operation_selected.length > 0){
+
+                            for(operation of operation_selected){
+                                const value = validations.triangle[operation](base,height);
+                                const key =  Object.keys(value)[0]
+                                addResult(value[key], key);
+                            } 
+                        } else {
+                            alert(`No se enviaron datos validos`);
+                        }
+                    },
+                    area(base, height){
+                        return {Área: (base*height)/2}
+                    },
+                    perimeter(base, height){
+                        const side = Math.sqrt(height*height + base*base);
+                        return {Perímetro: (base + side + height).toFixed(2)}
+                    }
+                },
+                rectangle:{
+                    createInputs(){
+                        let new_inputs = $("#inputs-container").clone().empty();
+                        new_inputs.append(createInput("Lado 1","side_1")) ;
+                        new_inputs.append(createInput("Lado2","side_2"));
+                        return new_inputs;
+                    },
+                    validation(){
+                        let side_1 = $("input#side_1").val();
+                        let side_2 = $("input#side_2").val();
+                        side_1 = parseFloat(side_1);
+                        side_2 = parseFloat(side_2);
+
+                        if(side_1 > 0 && side_2 > 0 && operation_selected.length > 0){
+
+                            for(operation of operation_selected){
+                                const value = validations.rectangle[operation](side_1,side_2);
+
+                                const key =  Object.keys(value)[0]
+                                addResult(value[key], key);
+                            } 
+                        } else {
+                            alert(`No se enviaron datos validos`);
+                        }
+                    },
+                    area(base, height){
+                        return {Área: (base * height)};
+                    },
+                    perimeter(base, height){
+                        return {Perímetro: (base*2 + height*2)};
+                    }
+                },
+                poligon:{
+                    createInputs(){
+                        let new_inputs = $("#inputs-container").clone().empty();
+                        new_inputs.append(createInput("N. De Lados","n_sides")) ;
+                        new_inputs.append(createInput("Medida de Lado","size"));
+                        
+                        if(operation_selected.includes("area")){
+                            new_inputs.append(createInput("Apotema","apothem")) ;
+                        } 
+                        return new_inputs;
+                    },
+                    validation(){
+                        let n_sides = $("input#n_sides").val();
+                        let size = $("input#size").val();
+                        n_sides = parseFloat(n_sides);
+                        size = parseFloat(size);
+
+                        if(n_sides > 0 && size > 0){
+
+                            for(operation of operation_selected){
+                                if(operation == "area" ){
+                                    let apothem = $("input#apothem").val();
+                                    apothem = parseFloat(apothem);
+
+                                    if(apothem > 0){
+                                        const area = validations.poligon.area(n_sides,size,apothem);
+                                        addResult(area, "Área");
+                                    }
+                                } else if(operation == "perimeter"){
+                                    const perimeter = validations.poligon.perimeter(n_sides,size);
+                                    addResult(perimeter,"Perímetro")
+                                } 
+                            } 
+                        } else {
+                            alert(`No se enviaron datos validos`)
+                        }
+                    },
+                    area(n_lados, size, apothem){
+                        const perimeter = validations.poligon.perimeter(n_lados, size);
+                        return (perimeter*apothem)/2;
+                    },
+                    perimeter(n_lados, size) { return n_lados*size; }
+                }
+            }       
+        })
+
+    </script>
+</body>
+</html>
