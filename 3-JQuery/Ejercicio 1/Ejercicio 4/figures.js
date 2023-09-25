@@ -1,4 +1,3 @@
-
         $(document).ready(function(){
             $("fieldset").addClass("m-3 border border-dark rounded p-2 h-100").children("legend").addClass("w-auto mx-2 px-2");
             $("div#figure-values").css("display","none");
