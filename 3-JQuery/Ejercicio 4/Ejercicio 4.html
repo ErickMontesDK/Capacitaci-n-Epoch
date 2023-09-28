@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        legend {
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body class="container">
+    <h1 class="my-3">Cálculo de áreas y perímetros</h1>
+
+    <form  id="figures_calculations" action="" class="row">
+
+        <div class="col col-12 col-md-3 px-1">
+            <fieldset  id="figure-options">
+                <legend class="form-text text-muted">Selecciona la figura</legend>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="triangle" id="triangle" value="triangle">
+                    <label class="form-check-label">Triángulo</label>
+                    
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="triangle" id="rectangle" value="rectangle">
+                    <label class="form-check-label" for="rectangle">Rectángulo</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="triangle" id="poligon" value="poligon">
+                    <label class="form-check-label" for="poligon">Polígono regular</label>
+                </div>
+            </fieldset>
+
+            <div class="m-3 d-none d-md-block">
+                <button type="submit" class="btn btn-secondary my-4" disabled>Enviar</button>
+            </div>
+        </div>
+
+        
+        <div class="col col-12 col-md-7" id="figure-values">
+            <div class="row">
+                <div class="col-sm-4 px-1">
+                    <fieldset  id="operation-triangle">
+                        <legend class="form-text text-muted">Operacion para triángulo</legend>
+                        <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="area-triangle" id="area-triangle" value="area">
+                                <label class="form-check-label" for="area-triangle">Área</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="perimeter-triangle" id="perimeter-triangle" value="perimeter">
+                            <label class="form-check-label" for="perimeter-triangle">Perímetro</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-8 px-1">
+                    <fieldset id="triangle_values" class="px-4">
+                        <legend class="form-text text-muted">Entra sus valores</legend>
+                            <div>
+                                
+                            </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <fieldset  id="operation-rectangle">
+                        <legend class="form-text text-muted">Operacion para rectángulo</legend>
+                        <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="area-rectangle" id="area-rectangle" value="area">
+                                <label class="form-check-label" for="area-rectangle">Área</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="perimeter-rectangle" id="perimeter-rectangle" value="perimeter">
+                            <label class="form-check-label" for="perimeter-rectangle">Perímetro</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-8">
+                    <fieldset id="rectangle_values">
+                        <legend class="form-text text-muted">Entra sus valores</legend>
+                            <div>
+                                
+                            </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <fieldset  id="operation-poligon">
+                        <legend class="form-text text-muted">Operacion para polígono</legend>
+                        <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="area-poligon" id="area-poligon" value="area">
+                                <label class="form-check-label" for="area-poligon">Área</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="perimeter-poligon" id="perimeter-poligon" value="perimeter">
+                            <label class="form-check-label" for="perimeter-poligon">Perímetro</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-8">
+                    <fieldset id="poligon_values">
+                        <legend class="form-text text-muted">Entra sus valores</legend>
+                            <div>
+                                
+                            </div>
+                    </fieldset>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="col col-md-2 d-flex flex-column">
+            <div class="m-3 d-md-none">
+                <button type="submit" class="btn btn-secondary my-4" disabled>Enviar</button>
+            </div>
+            <output id="results" for="figures_calculations">
+                
+            </output>
+        </div>
+    </form>
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>  
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./figures.js" type="module"></script>
+</body>
+</html>
