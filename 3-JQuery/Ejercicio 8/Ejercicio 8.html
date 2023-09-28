@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <title>Ejercicio 8</title>
+    <style>
+        #display {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            direction: rtl;
+            unicode-bidi: bidi-override;
+        }
+    </style>
+</head>
+<body class="container">
+    <div class="row">
+        <h1 class="mx-auto my-3">Calculadora</h1>
+    </div>
+    <div class="container col-12 col-sm-9 col-md-6 col-lg-5 border bg-dark rounded">
+        <div class="row my-3 mx-2">
+            <div class="col border rounded bg-light">
+                <p id="display" class="display-4 m-auto  text-right">000000000</p>
+            </div>
+        </div>
+        <div class="row my-3 mx-2">
+            <div class="col-4 col-sm-2 p-1">
+                <button id="on-off" class="btn btn-danger w-100">ON</button>
+            </div>
+            <div class="col-4 col-sm-2 offset-sm-6 p-1">
+                <button id="delete" class="btn btn-danger w-100">DEL</button>
+            </div>
+            <div class="col-4 col-sm-2 p-1">
+                <button id="reset" class="btn btn-danger w-100">AC</button>
+            </div>
+        </div>
+        <div class="row my 3 mx-2">
+            <div class="col-9">
+                <div class="row row-cols-sm-3 row-cols-2">
+                    <div class="col p-1 order-sm-3"><button class="number btn btn-secondary w-100 ">9</button></div>
+                    <div class="col p-1 order-sm-2"><button class="number btn btn-secondary w-100">8</button></div>
+                    <div class="col p-1 order-sm-1"><button class="number btn btn-secondary w-100">7</button></div>
+                    <div class="col p-1 order-sm-6"><button class="number btn btn-secondary w-100">6</button></div>
+                    <div class="col p-1 order-sm-5"><button class="number btn btn-secondary w-100">5</button></div>
+                    <div class="col p-1 order-sm-4"><button class="number btn btn-secondary w-100">4</button></div>
+                    <div class="col p-1 order-sm-9"><button class="number btn btn-secondary w-100">3</button></div>
+                    <div class="col p-1 order-sm-8"><button class="number btn btn-secondary w-100">2</button></div>
+                    <div class="col p-1 order-sm-7"><button class="number btn btn-secondary w-100">1</button></div>
+                    <div class="col p-1 order-sm-10"><button class="number btn btn-secondary w-100">0</button></div>
+                    <div id="decimal" class="col p-1 order-sm-11"><button class="btn btn-secondary w-100">.</button></div>
+                    <div class="col p-1 order-sm-12"><button class="btn btn-secondary w-100">=</button></div>
+                </div>
+
+            </div>
+            <div class="col-3 p-1">
+                <button class="operation btn btn-secondary w-100 mb-2">÷</button>
+                <button class="operation btn btn-secondary w-100 mb-2">x</button>
+                <button class="operation btn btn-secondary w-100 mb-2">-</button>
+                <button class="operation btn btn-secondary w-100 mb-2">+</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>  
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./calculator.js" type="module"></script>
+</body>
+</html>
