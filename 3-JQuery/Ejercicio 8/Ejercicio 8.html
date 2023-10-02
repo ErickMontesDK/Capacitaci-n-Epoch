@@ -8,8 +8,8 @@
     <title>Ejercicio 8</title>
     <style>
         #display {
-            text-overflow: ellipsis;
-            overflow: hidden;
+            overflow-x: scroll;
+            overflow-y: hidden;
             white-space: nowrap;
             direction: rtl;
             unicode-bidi: bidi-override;
@@ -37,7 +37,7 @@
                 <button id="reset" class="btn btn-danger w-100">AC</button>
             </div>
         </div>
-        <div class="row my 3 mx-2">
+        <div class="row my 3 mx-2 mb-3">
             <div class="col-9">
                 <div class="row row-cols-sm-3 row-cols-2">
                     <div class="col p-1 order-sm-3"><button class="number btn btn-secondary w-100 ">9</button></div>
@@ -50,8 +50,8 @@
                     <div class="col p-1 order-sm-8"><button class="number btn btn-secondary w-100">2</button></div>
                     <div class="col p-1 order-sm-7"><button class="number btn btn-secondary w-100">1</button></div>
                     <div class="col p-1 order-sm-10"><button class="number btn btn-secondary w-100">0</button></div>
-                    <div id="decimal" class="col p-1 order-sm-11"><button class="btn btn-secondary w-100">.</button></div>
-                    <div class="col p-1 order-sm-12"><button class="btn btn-secondary w-100">=</button></div>
+                    <div class="col p-1 order-sm-11"><button id="decimal" class="btn btn-secondary w-100">.</button></div>
+                    <div class="col p-1 order-sm-12"><button id="solve" class="btn btn-secondary w-100">=</button></div>
                 </div>
 
             </div>

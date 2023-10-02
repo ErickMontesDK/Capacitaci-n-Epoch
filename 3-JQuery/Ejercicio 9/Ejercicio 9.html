@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/05f4b96dc4.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="./src/jquery-ui-1.13.2.custom/jquery-ui.css">
+    <script src="./src/jquery-ui-1.13.2.custom/jquery-ui.js"></script>
+
+    <script src="./src/inputmask/jquery.inputmask.js"></script>
+
+    <title>Ejercicio 9</title>
+
+    <style>
+        .select-input{
+            position: relative;
+            width: 215px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body class="container p-0">
+    <div class="row">
+        <h1 class="mx-auto my-3">Formulario</h1>
+        
+    </div>
+
+    <form action="" class="container border border-dark rounded" >
+        <div class="form-row mx-auto row-cols-1 row-cols-sm-2 row-cols-md-3">
+            <div class="col p-1 form-group">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" name="name" id="name"  placeholder="">
+            </div>
+
+            <div class="col p-1 form-group">
+                <label for="date" class="form-label">Fecha de nacimiento</label>
+                    <div class="input-group date row m-0" id="datepicker">
+                        <input type="text" class="form-control" id="date" name="date">
+                        <span class="input-group-append">
+                            <span class="input-group-text bg-white">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </span>
+                    </div>
+            </div>
+
+            <div class="form-group col p-1">
+                    <label for="age">Edad:</label>
+                    <input type="number" class="form-control" name="age" id="age" placeholder="" readonly>
+            </div>
+
+            <div class="form-group col p-1">
+                <div class="d-flex flex-column">
+                    <label for="">Hobbies:</label>
+                    <select class="select-input" name="hobbies[]" multiple="multiple">
+                        <optgroup label="Deporte">
+                            <option value="futbol">Fútbol</option>
+                            <option value="baloncesto">Baloncesto</option>
+                            <option value="natacion">Natación</option>
+                            <option value="atletismo">Atletismo</option>
+                            <option value="ciclismo">Ciclismo</option>
+                            <option value="yoga">Yoga</option>
+                            <option value="senderismo">Senderismo</option>
+                        </optgroup>
+                        <optgroup label="Actividad al aire libre">
+                            <option value="jardineria">Jardinería</option>
+                            <option value="fotografia">Fotografía</option>
+                            <option value="pesca">Pesca</option>
+                        </optgroup>
+                        <optgroup label="Actividades artísticas">
+                            <option value="pintura">Pintura</option>
+                            <option value="dibujo">Dibujo</option>
+                            <option value="ceramica">Cerámica</option>
+                            <option value=“costura”>Costura</option> 
+                        </optgroup> 
+                        <optgroup label="Actividades de tipo tecnológico"> 
+                            <option value=“videojuegos”>Videojuegos</option> 
+                            <option value=“drones”>Drones</option> 
+                            <option value="impresion 3d">Impresión 3D</option> 
+                        </optgroup> 
+                        <optgroup label="Actividad mental"> 
+                            <option value=“ajedrez”>Ajedrez</option> 
+                            <option value=“puzzles”>Puzzles</option> 
+                            <option value="escritura creativa">Escritura creativa</option> 
+                            <option value=“lectura”>Lectura</option> 
+                        </select>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col p-1 ">
+                <div class="d-flex flex-column">
+                    <label for="states">Estado:</label>
+                    <select class="select-input" name="states" id="states">
+                        <option value="aguascalientes">Aguascalientes</option>
+                        <option value="campeche">Campeche</option>
+                        <option value="michoacán">Michoacán</option>
+                        <option value="morelos">Morelos</option>
+                        <option value="querétaro">Querétaro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col p-1">
+                <div class="d-flex flex-column">
+                    <label for="city">Ciudad:</label>
+                    <select class="select-input" name="city" id="city">
+                    
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col p-1">
+                <label for="country">País</label>
+                <input type="text" class="form-control" name="country" id="country" placeholder="">
+            </div>
+            <div class="form-group col p-1">
+                <label for="phone">Teléfono</label>
+                <input type="tel" class="form-control" name="phone" id="phone">
+            </div>
+
+        </div>
+        
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>  
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./src/form.js" type="module"></script>
+    <script type="text/javascript">
+
+        $(function() {
+            $("#datepicker").datepicker({ 
+                format: "yyyy-mm-dd",
+                autoclose: true, 
+                startView: "years",
+                language: 'es',
+                endDate: new Date()
+            }).datepicker('update', new Date(2013,0,1));
+
+            $(document).ready(function() {
+                $('.select-input').select2({
+                    dropdownAutoWidth: true
+                });
+            });
+        });
+    </script>
+    <script src="./src/autocomplete.js"></script>
+</body>
+</html>
