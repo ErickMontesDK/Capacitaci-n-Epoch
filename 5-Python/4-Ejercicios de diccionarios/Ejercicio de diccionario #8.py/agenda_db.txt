@@ -1,3 +1,468 @@
 {
-  
+      "135": {
+            "fecha_registro": "17-10-2023",
+            "porcentaje": 100,
+            "datos_personales": {
+                  "nombre": "Erick Montes",
+                  "fecha_de_nacimiento": "04-09-1995",
+                  "genero": "M"
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        "4434595984"
+                  ],
+                  "email": "erickmontesdk@gmail.com"
+            },
+            "domicilio": {
+                  "calle_numero": "circuito fortum #182",
+                  "ciudad": "morelia",
+                  "entidad": "michoac\u00e1n"
+            },
+            "hobbies": {
+                  "deportes": [
+                        "ciclismo",
+                        "nataci\u00f3n"
+                  ],
+                  "pel\u00edculas": [
+                        "star wars episode iii",
+                        "the dark knight",
+                        "django"
+                  ],
+                  "musica": {
+                        "generos": {
+                              "rock": [
+                                    "auf wiedersehen",
+                                    "snake eyes"
+                              ],
+                              "heavy metal": [
+                                    "the trooper",
+                                    "paranoid"
+                              ]
+                        },
+                        "grupos": [
+                              {
+                                    "nombre": "alan parsons",
+                                    "canciones": [
+                                          "snake eyes",
+                                          "i robot"
+                                    ]
+                              },
+                              {
+                                    "nombre": "ghost",
+                                    "canciones": [
+                                          "cirice",
+                                          "rats"
+                                    ]
+                              },
+                              {
+                                    "nombre": "pink floyd",
+                                    "canciones": [
+                                          "one of these days",
+                                          "dogs"
+                                    ]
+                              }
+                        ]
+                  }
+            }
+      },
+      "cba": {
+            "fecha_registro": "17-10-2023",
+            "porcentaje": 100,
+            "datos_personales": {
+                  "nombre": "Marlen ponce",
+                  "fecha_de_nacimiento": "10-03-1995",
+                  "genero": "f"
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        "4412121212"
+                  ],
+                  "email": "marlenponce@mail.com"
+            },
+            "domicilio": {
+                  "calle_numero": "mirasoles 113",
+                  "ciudad": "morelia",
+                  "entidad": "michoac\u00e1n"
+            },
+            "hobbies": {
+                  "deportes": [
+                        "natacion"
+                  ],
+                  "pel\u00edculas": [
+                        "donde estar\u00e1n las rubias"
+                  ],
+                  "musica": {
+                        "generos": {
+                              "pop": [
+                                    "diamantes"
+                              ]
+                        },
+                        "grupos": [
+                              {
+                                    "nombre": "carla morrison",
+                                    "canciones": [
+                                          "pajarito del amor"
+                                    ]
+                              },
+                              {
+                                    "nombre": "jesse and joe",
+                                    "canciones": [
+                                          "dueles",
+                                          "corre"
+                                    ]
+                              }
+                        ]
+                  }
+            }
+      },
+      "4cc": {
+            "fecha_registro": "18-10-2023",
+            "porcentaje": 100,
+            "datos_personales": {
+                  "nombre": "Juan",
+                  "fecha_de_nacimiento": "10-10-2000",
+                  "genero": "m"
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        "4434455454"
+                  ],
+                  "email": "juan@mail.com"
+            },
+            "domicilio": {
+                  "calle_numero": "benemerito #75",
+                  "ciudad": "lazaro",
+                  "entidad": "michoacan"
+            },
+            "hobbies": {
+                  "deportes": [
+                        "futbol",
+                        "basket"
+                  ],
+                  "pel\u00edculas": [
+                        "lalaland",
+                        "rambo"
+                  ],
+                  "musica": {
+                        "generos": {
+                              "pop": [
+                                    "rosa pastel",
+                                    "limon y sal"
+                              ],
+                              "banda": [
+                                    "no s\u00e9",
+                                    "no s\u00e9"
+                              ]
+                        },
+                        "grupos": [
+                              {
+                                    "nombre": "julieta venegas",
+                                    "canciones": [
+                                          "no s\u00e9",
+                                          "no s\u00e9"
+                                    ]
+                              }
+                        ]
+                  }
+            }
+      },
+      "233": {
+            "fecha_registro": "18-10-2023",
+            "porcentaje": 45,
+            "datos_personales": {
+                  "nombre": "Abril Montes",
+                  "fecha_de_nacimiento": "10-03-2002",
+                  "genero": "F"
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        ""
+                  ],
+                  "email": "abril@mail.com"
+            }
+      },
+      "b83": {
+            "fecha_registro": "18-10-2023",
+            "porcentaje": 100,
+            "datos_personales": {
+                  "nombre": "Abril ",
+                  "fecha_de_nacimiento": "10-03-2002",
+                  "genero": "F"
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        ""
+                  ],
+                  "email": "abril@mail.com"
+            },
+            "domicilio": {
+                  "calle_numero": "circuito fortum #182",
+                  "ciudad": "morelia",
+                  "entidad": "michoacan"
+            },
+            "hobbies": {
+                  "deportes": [
+                        ""
+                  ],
+                  "pel\u00edculas": [
+                        ""
+                  ],
+                  "musica": {
+                        "generos": {
+                              "pop": [
+                                    "rosa pastel"
+                              ],
+                              "k-pop": [
+                                    "lucifer"
+                              ],
+                              "rock": [
+                                    "gritos"
+                              ]
+                        },
+                        "grupos": [
+                              {
+                                    "nombre": "deftones",
+                                    "canciones": [
+                                          "mas gritos",
+                                          "y gritos"
+                                    ]
+                              },
+                              {
+                                    "nombre": "jonas brothers",
+                                    "canciones": [
+                                          "paranoid",
+                                          "l.a"
+                                    ]
+                              }
+                        ]
+                  }
+            }
+      },
+      "899": {
+            "fecha_registro": "18-10-2023",
+            "porcentaje": 25,
+            "datos_personales": {
+                  "nombre": "Javier Diaz",
+                  "fecha_de_nacimiento": "02-05-1972",
+                  "genero": "m"
+            }
+      },
+      "330": {
+            "fecha_registro": "18-10-2023",
+            "porcentaje": 100,
+            "datos_personales": {
+                  "nombre": "Laura Bedolla",
+                  "fecha_de_nacimiento": "14-07-1969",
+                  "genero": "f"
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        "4431646392",
+                        "443115151594"
+                  ],
+                  "email": "laurabedolla@gmail.com"
+            },
+            "domicilio": {
+                  "calle_numero": "circuito fortum #182",
+                  "ciudad": "morelia",
+                  "entidad": "michoac\u00e1n"
+            },
+            "hobbies": {
+                  "deportes": [
+                        "monta\u00f1ismo"
+                  ],
+                  "pel\u00edculas": [
+                        "lalaland",
+                        "pelicula aburrida"
+                  ],
+                  "musica": {
+                        "generos": {
+                              "rock": [
+                                    "agregue l@s canciones favoritas del elemento rock",
+                                    "separados por una coma:"
+                              ],
+                              "pop": [
+                                    "agregue l@s canciones favoritas del elemento pop",
+                                    "separados por una coma:"
+                              ]
+                        },
+                        "grupos": [
+                              {
+                                    "nombre": "vertigo",
+                                    "canciones": [
+                                          "agregue l@s canciones favoritas del elemento vertigo",
+                                          "separados por una coma:"
+                                    ]
+                              },
+                              {
+                                    "nombre": "meh",
+                                    "canciones": [
+                                          "agregue l@s canciones favoritas del elemento meh",
+                                          "separados por una coma:"
+                                    ]
+                              }
+                        ]
+                  }
+            }
+      },
+      "59d": {
+            "fecha_registro": "18-10-2023",
+            "porcentaje": 100,
+            "datos_personales": {
+                  "nombre": "",
+                  "fecha_de_nacimiento": "01-01-2001",
+                  "genero": ""
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        ""
+                  ],
+                  "email": ""
+            },
+            "domicilio": {
+                  "calle_numero": "",
+                  "ciudad": "",
+                  "entidad": ""
+            },
+            "hobbies": {
+                  "deportes": [
+                        ""
+                  ],
+                  "pel\u00edculas": [
+                        ""
+                  ],
+                  "musica": {
+                        "generos": {
+                              "": [
+                                    ""
+                              ]
+                        },
+                        "grupos": [
+                              {
+                                    "nombre": "",
+                                    "canciones": [
+                                          ""
+                                    ]
+                              }
+                        ]
+                  }
+            }
+      },
+      "29c": {
+            "fecha_registro": "18-10-2023",
+            "porcentaje": 100,
+            "datos_personales": {
+                  "nombre": "Emmanuel Bedolla Zavala",
+                  "fecha_de_nacimiento": "15-01-2010",
+                  "genero": "m"
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        "4431212121",
+                        "44112212121",
+                        "451512121651"
+                  ],
+                  "email": "emmanuel@gmail.com"
+            },
+            "domicilio": {
+                  "calle_numero": "av. solidaridad 131",
+                  "ciudad": "morelia",
+                  "entidad": "michoacan"
+            },
+            "hobbies": {
+                  "deportes": [
+                        "a"
+                  ],
+                  "pel\u00edculas": [
+                        "fnaf",
+                        "sonic",
+                        "mario"
+                  ],
+                  "musica": {
+                        "generos": {
+                              "pop": [
+                                    "rosa pastel",
+                                    "corre"
+                              ],
+                              "clasica": [
+                                    "novena sinfonia",
+                                    "luz de luna"
+                              ]
+                        },
+                        "grupos": [
+                              {
+                                    "nombre": "marco",
+                                    "canciones": [
+                                          "una cancion",
+                                          "otra cancion",
+                                          "y una mas"
+                                    ]
+                              },
+                              {
+                                    "nombre": "polo",
+                                    "canciones": [
+                                          "un ejemplo",
+                                          "otro ejemplo",
+                                          "y uno m\u00e1s"
+                                    ]
+                              }
+                        ]
+                  }
+            }
+      },
+      "76e": {
+            "fecha_registro": "18-10-2023",
+            "porcentaje": 100,
+            "datos_personales": {
+                  "nombre": "Erick",
+                  "fecha_de_nacimiento": "04-09-1995",
+                  "genero": "m"
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        "441111111"
+                  ],
+                  "email": "meh@mail.com"
+            },
+            "domicilio": {
+                  "calle_numero": "eje peatonal #2",
+                  "ciudad": "saltillo",
+                  "entidad": "coahuila"
+            },
+            "hobbies": {
+                  "deportes": [
+                        "ninguno",
+                        "dormir"
+                  ],
+                  "pel\u00edculas": [
+                        "sangre",
+                        "mas sangre"
+                  ],
+                  "musica": {
+                        "generos": {
+                              "rock": [
+                                    "persiana americana",
+                                    "viento"
+                              ],
+                              "musica": [
+                                    "meh"
+                              ]
+                        },
+                        "grupos": [
+                              {
+                                    "nombre": "marco antonio solis",
+                                    "canciones": [
+                                          "a donde vamos a parar"
+                                    ]
+                              },
+                              {
+                                    "nombre": "meh",
+                                    "canciones": [
+                                          "jda"
+                                    ]
+                              }
+                        ]
+                  }
+            }
+      }
 }
