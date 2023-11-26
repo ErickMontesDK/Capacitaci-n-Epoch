@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{% static 'lib/adminlte_v3.1/plugins/fontawesome-free/css/all.min.css' %}">
+    <script src="https://kit.fontawesome.com/05f4b96dc4.js" crossorigin="anonymous"></script>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'lib/adminlte_v3.1/css/adminlte.min.css' %}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="{% static 'lib/adminlte_v3.1/plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'lib/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'lib/adminlte_v3.1/js/adminlte.min.js' %}"></script>
+    <!--sweetalert2-->
+    <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.js' %}"></script>
+    <!--Custom css-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!--Autocomplete JQuery-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <!--Input spinner-->
+    <script src="{% static 'lib/input-spinner/bootstrap-input-spinner.js' %}"></script>
+    <!--jquery toast-->
+    <script src="{% static 'lib/jquery-toast/jquery.toast.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'lib/jquery-toast/jquery.toast.min.css' %}">
+
+    <title>{{title}}</title>
+</head>
+    {% block body %}
+    
+    {% endblock body %}
+    
+</html>

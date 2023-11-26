@@ -1,0 +1,387 @@
+{% extends "body.html" %}
+{% load static %}
+
+{% block content %}
+<input type="hidden" id="csrf_token" value="{{csrf_token}}">
+<div class="row">
+    <div class="col col-12 col-md-4  ">
+        <div class="row p-2">
+            <div class="col col-6 p-1">
+                <button class="btn btn-secondary w-100 h-100" id="add_client">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    <p>Seleccionar cliente</p>
+                </button>
+            </div>
+            <div class="col col-6 p-1">
+                <button class="btn btn-secondary w-100 h-100" id="add_product">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    <p>Agregar productos</p>
+                </button>
+            </div>
+        </div>
+        <div class="row px-4" id="client_input">
+            <div class="ui-widget form-group">
+                <label for="cliente">Nombre del cliente: </label>
+                <input id="cliente" class="form-control">
+            </div>
+        </div>
+        <div class="row px-4" id="product_input">
+            <div class="ui-widget form-group">
+                <label for="producto">Producto: </label>
+                <input id="producto" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="col col-12 col-md-8 ">
+            <div class="row">
+                <div class="small-box bg-info col-12">
+                    <div class="inner text-center">
+                        <div class="row">
+                            <div class="col col-3">Producto</div>
+                            <div class="col col-2">Cantidad</div>
+                            <div class="col col-2">Precio c/u</div>
+                            <div class="col col-2">Descuento %</div>
+                            <div class="col col-2">Importe</div>
+                            
+                        </div>
+                        <div id="list_products">
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <p href="#" class="small-box-footer">Árticulos ingresados</p>
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div class="small-box bg-success col-12 col-md-6">
+                    <div class="inner d-flex justify-content-end">
+                        <table class="text-right">
+                            <tr>
+                                <td>Subtotal:</td>
+                                <td>$<span id="subtotal">0.00</span></td>
+                            </tr>
+                            <tr>
+                                <td>Descuento:</td>
+                                <td>$<span id="descuento">0.00</span></td>
+                            </tr>
+                            <tr>
+                                <td>Total:</td>
+                                <td>$<span id="total">0.00</span></td>
+                            </tr>
+                        </table>
+                        
+                    </div>
+                    
+                    <p href="#" class="small-box-footer">Resumen de compra</p>
+                </div>
+            </div>
+            
+            <div class="row justify-content-end">
+                <button type="button" class="btn btn-info col-12 col-md-6 py-3" id="purchase"  disabled data-toggle="modal" data-target="#payment">
+                    <p class="lead"><i class="fas fa-money-bill-wave"></i> Efectuar pago</p>
+                </button>
+            </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                    <h5 class="modal-title">Cobro a cliente</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="row justify-content-around">
+                                            <button class="btn btn-outline-info col m-2 payment_method" id="cash">
+                                                <i class="fas fa-money-bill-wave"></i>
+                                                <p>Efectivo</p>
+                                            </button>
+                                            <button class="btn btn-outline-info col m-2 payment_method" id="card">
+                                                <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                                <p>Tarjeta</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 border-left border-secondary ">
+                                        <p class="lead">Total a pagar: $<span id="payment_total">0.00</span></p>
+                                        <div id="cash-box">
+                                            <div class="form-group">
+                                                <label for="" class="lead font-weight-normal">Recibido</label>
+                                                <input type="number"
+                                                    class="form-control" name="" id="client_payment" aria-describedby="helpId" placeholder="" step="any" disabled>
+                                            </div>
+                                            <p class="lead">Cambio $<span id="payment_change">00.00</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel_purchase">Cancelar</button>
+                            <button type="button" class="btn btn-primary" id="register_purchase" disabled>Registrar compra</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    const sourceClients = '{% url "auto_clients" %}'
+    const sourceProducts = '{% url "auto_products" %}'
+</script>
+<script src="{% static 'js/ventaBuilder.js' %}"></script>
+
+<script src="{% static 'js/autocompleteJQuery.js' %}"></script>
+
+<script>
+    const venta = new VentaBuilder().addVendedor({{request.user.id}})
+    
+    const ablePurchaseButton = () =>{
+        const total = parseFloat($('#total').text())
+
+        if(total > 0 && venta.getCliente()){
+            $("#purchase").prop("disabled", false);
+        } else {
+            $("#purchase").prop("disabled", true);
+        }
+    }
+    
+    const updateShopResume = () =>{
+        let subtotal = 0
+        let descuentoTotal = 0
+
+        $(`div[id^='product-']`).each(function (index, product) {
+            const importe = parseFloat($(product).children(`div[id^='importe-']`).text().slice(1,))
+            const descuento = parseFloat($(product).find(`input[id^='discount-']`).val())
+
+            subtotal += importe
+            descuentoTotal += importe*(descuento/100)
+        })
+        const total = subtotal - descuentoTotal
+
+        $('#subtotal').text(`${subtotal.toFixed(2)}`)
+        $('#descuento').text(`${descuentoTotal.toFixed(2)}`)
+        $('#total').text(`${total.toFixed(2)}`)
+        ablePurchaseButton()
+    }
+
+    $(document).ready(function(){
+        $('#client_input').hide()
+
+        $('#product_input').hide()
+
+
+        $(".ui-widget").children('input').click(function () {
+            $(this).val("");
+        })
+
+        $("#cliente").on("clienteSeleccionado", function(event){
+            const clienteid = event.detail;
+            venta.addCliente(clienteid)
+            
+            if(venta.getCliente()){
+                $('#add_client').removeClass('bg-secondary').addClass('bg-success').children('p').text(`Editar cliente`)
+                
+            } else {
+                $('#add_client').removeClass('bg-success').addClass('bg-secondary').children('p').text(`Seleccionar cliente`)
+            }
+
+            $('#client_input').toggle()
+            ablePurchaseButton()
+        });
+
+
+        $('#add_client').click(function () {
+            $('#client_input').toggle()
+        })
+
+
+        $('#add_product').click(function () {
+            $('#product_input').toggle()
+        })
+
+
+        $("#producto").on("productoSeleccionado", function(event){
+            const productdb = event
+            const alreadyCreatedProd = $('#list_products').find(`div#product-${productdb.id}`)
+            $('#add_product').removeClass('bg-secondary').addClass('bg-success')
+
+
+            if( alreadyCreatedProd.length > 0 ){
+                alreadyCreatedProd.find('input[id^="quantity-"]').val(parseInt(alreadyCreatedProd.find('input[id^="quantity-"]').val()) + 1)
+
+            } else {
+                const productTemplate = `
+                <div class="row text-dark text-center font-weight-bold mb-2" id=product-${productdb.id}>
+                    <div class="product_name col col-3">${productdb.label}</div>
+                    <div class="product_quantity col col-2">
+                        <input id="quantity-${productdb.id}" type="number" value="1" min="1" max="${productdb.existence}" step="1" class="bg-info border-0 mx-auto"/>
+                    </div>
+                    <div class="product_price col col-2">$${productdb.price}</div>
+                    <div class="product-discount col col-2 ">
+                        <input id="discount-${productdb.id}" type="number" value="0" min="0" max="100" step="1" class="bg-info border-0 mx-auto"/>   
+                    </div>
+                    <div id="importe-${productdb.id}" class="product_name col col-2">$${productdb.price}</div>
+                    <div class="col col-1">
+                        <button class="btn btn-flat btn-danger btn-sm" id="delete-${productdb.id}">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                `
+                let productItemInDisplay = $(productTemplate)
+                $('#list_products').append(productItemInDisplay)
+                productItemInDisplay.find("input[type='number']").inputSpinner();
+            }           
+            updateShopResume();
+        });
+
+        
+
+        $('#list_products').on('change','input[id^="quantity-"]', function () {
+            const cantidad = $(this).val()
+            const precio_unit = $(this).closest('.product_quantity').siblings('.product_price').text().slice(1,)
+            const importe = cantidad*parseFloat(precio_unit)
+
+            $(this).closest('.product_quantity').parent().find('div[id^="importe-"]').text(`$${importe.toFixed(2)}`)
+            updateShopResume();
+        })
+
+
+        $('#list_products').on('click','button[id^="delete-"]', function () {
+            const product_id = parseInt($(this).prop('id').slice(7,));
+
+            $(`#product-${product_id}`).remove()
+            updateShopResume();
+        })
+
+        $('.payment_method').click(function(){
+            $('.payment_method').removeClass('active');
+            $(this).addClass('active')
+        })
+
+        $('#purchase').click(function(){
+            let productos = []
+
+            $(`div[id^='product-']`).each(function (index, product) {
+                const id = parseInt($(product).attr('id').slice(8,))
+                const cantidad = parseFloat($(product).find(`input[id^='quantity-']`).val())
+                const precio_unitario = parseFloat($(product).children(`.product_price`).text().slice(1,))
+                const importe = parseFloat($(product).children(`div[id^='importe-']`).text().slice(1,))
+                const descuento = parseFloat($(product).find(`input[id^='discount-']`).val())
+
+                const new_product = new ProductoBuilder()
+                    .setProducto(id)
+                    .setPrecio(precio_unitario)
+                    .setCantidad(cantidad)
+                    .setDescuento(descuento)
+                    .build()
+
+                productos.push(new_product)
+            })
+            venta.addProductos(productos)
+                .addSubtotal(parseFloat($('#subtotal').text()))
+                .addDescuento(parseFloat($('#descuento').text()))
+                .addTotal(parseFloat($('#total').text()))
+                
+            const datos_parciales_venta = venta.build()
+            $('#payment_total').text(datos_parciales_venta.total.toFixed(2))
+        })
+
+        $('#cash').click(function(){
+            $('#client_payment').val(0)
+            $('#client_payment').attr("disabled", false)
+            venta.addMetodoPago('efectivo')
+            updateChangeAndPayment();
+        })
+        $('#card').click(function(){
+            const total = venta.getTotal();
+            $('#client_payment').val(total).attr("disabled", true);
+            venta.addMetodoPago('transferencia');
+            updateChangeAndPayment();
+        })
+        const updateChangeAndPayment = () =>{
+            const total = venta.getTotal();
+            const client_payment = parseFloat($('#client_payment').val());
+            const cambio = parseFloat((client_payment - total).toFixed(2));
+
+            $('#payment_change').text(cambio)
+
+            venta.addPago_Cliente(client_payment)
+            venta.addCambio(cambio) 
+
+            if(total <= client_payment){
+                $('#register_purchase').attr("disabled",false)
+            } else {
+                $('#register_purchase').attr("disabled",true)
+            }
+        }
+        $('#client_payment').change(function(){
+            updateChangeAndPayment();            
+        })
+        $('#register_purchase').click(function(){
+            const ventaRegistrada = venta.build()
+            const csrf_token = $('#csrf_token').val()
+            $('#client_payment').attr("disabled",true)
+            $('#register_purchase').attr("disabled",true)
+
+            $.ajax({
+                type: "POST",
+                url: "{{base_url}}",
+                data: ventaRegistrada,
+                dataType: "json",
+                headers: {
+                    "X-CSRFToken": csrf_token
+                },
+                success: function (response) {
+                    let link = $('<a href="url"></a>');
+                    let djangoUrl = response.ticket
+                    
+
+                    link.attr('href', djangoUrl);  
+                    link.attr('id', 'print_ticket');
+                    link.attr('target',"_blank")
+                    link.addClass('btn btn-success'); 
+                    link.text('Imprimir Ticket');
+
+                    // Reemplazar el botón actual con el enlace
+                    $('#register_purchase').replaceWith(link);
+
+                    $('#cancel_purchase').text('Nueva compra').attr("id","new_purchase")
+
+                    $('#new_purchase').click(function(){
+                        location.reload(true);
+                    })
+                    $.toast({
+                        heading: 'Compra exitosa',
+                        text: `${response.message}`,
+                        showHideTransition: 'slide',
+                        icon: 'success'
+                    })
+                },
+                fail: function(response){
+                    $.toast({
+                        heading: 'Error en compra',
+                        text: `${response.message}`,
+                        showHideTransition: 'slide',
+                        icon: 'error'
+                    })
+                }
+            });
+        })
+        
+    })
+</script>
+{% endblock scripts %}

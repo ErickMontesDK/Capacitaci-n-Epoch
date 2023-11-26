@@ -1,0 +1,122 @@
+{% extends "body.html" %}
+
+{% block content %}
+<div class="container" id="detalle_venta">
+    <div class="row">
+        <h1 class="col-8">Detalle de Venta</h1>
+        <div class="col-4">
+            <h2>Torre Bazar</h2>
+            <p>Av. Lázaro Cardenas
+                Colonia Chapultepec Sur
+                Morelia, Michoacán
+            </p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col">
+            <p class="lead mb-0">Estimad@ {{cliente}} 
+                {% if cliente.email %}
+                    ({{cliente.email}})
+                {% endif %}
+                :
+            </p>
+            <p class="text-secondary">Aquí están sus detalles de compra. Gracias por su compra.</p>
+        </div>
+        
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-4 text-center">
+            <p class="text-secondary mb-0">Id de venta</p>
+            <p>{{venta.id}}</p>
+        </div>
+        <div class="col-4 text-center">
+            <p class="text-secondary mb-0">Fecha y hora</p>
+            <p>{{venta.fecha}}</p>
+        </div>
+        <div class="col-4 text-center">
+            <p class="text-secondary mb-0">Razón social</p>
+            {% if cliente.razon_social %}
+                <p>{{cliente.razon_social}}</p>
+            {% else %}
+                <p>Sin definir</p>
+            {% endif %}
+        </div>
+        <div class="col-4 text-center">
+            <p class="text-secondary mb-0">Dirección de facturación</p>
+            {% if cliente.direccion %}
+                <p>{{cliente.direccion}}</p>
+            {% else %}
+                <p>Sin definir</p>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Clave</th>
+                    <th>Producto</th>
+                    <th>Cant.</th>
+                    <th>Importe</th>
+                    <th>Descuento</th>
+                </tr>
+            </thead>
+            {% for detalle in detalles_venta %}
+            <tbody class="text-secondary font-weight-bold">
+                <tr>
+                    <td>{{detalle.producto.id}}</td>
+                    <td class="text-left">{{detalle.producto}}</td>
+                    <td>{{detalle.cantidad_prod}}</td>
+                    <td>${{detalle.importe}}</td>
+                    <td>{{detalle.descuento}}%</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+            
+        </table>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-4 text-secondary font-weight-bold">
+            <div class="row mb-2">
+                <div class="col">Subtotal</div>
+                <div class="col">${{venta.subtotal}}</div>
+            </div>
+            <div class="row  mb-2">
+                <div class="col">Descuento</div>
+                <div class="col">${{venta.descuento}}</div>
+            </div>
+            <div class="row  mb-2 text-dark">
+                <div class="col">Total</div>
+                <div class="col">${{venta.total}}</div>
+            </div>
+            <div class="row  mb-2">
+                <div class="col">Método de pago</div>
+                <div class="col">{{venta.metodo_pago|capfirst}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+{% endblock content %}
+
+{% block card-footer %}
+<a href="{% url 'pdf' venta_id=venta.id %}"
+    target="__blank"
+    class="btn btn-primary">Imprimir detalle de venta
+</a>
+{% endblock card-footer %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        // $('#print').click(function(){
+        //     const detalle_venta = $('#detalle_venta')
+        //     print(detalle_venta)
+        // })
+    })
+</script>
+{% endblock scripts %}

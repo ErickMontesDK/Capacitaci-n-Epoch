@@ -1,0 +1,19 @@
+{% for user in object_list %}
+<tr>
+    <td class="text-center">{{ user.id }}</td>
+    <td class="text-center">{{ user.username }}</td>
+    <td class="text-center">{{ user.first_name }}</td>
+    <td class="text-center">{{ user.last_name }}</td>
+    <td class="text-center">{{ user.email }}</td>
+    <td class="text-center">{{ user.rol }}</td>
+    <td class="text-center">{{ user.genero }}</td>
+    <td class="text-center">
+        <a href="{% url 'user_delete' user.id%}" type="button" class="btn btn-danger btn-flat btn-sm">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+        <a href="{% url 'user_edit' user.id %}" type="button" class="btn btn-info btn-flat btn-sm">
+            <i class="fas fa-edit    "></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}   

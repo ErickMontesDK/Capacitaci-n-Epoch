@@ -1,0 +1,50 @@
+{% extends "body.html" %}
+
+{% block breadcrumb-item %}
+<li class="breadcrumb-item"><a href="{{ list_url }}">{{list}}</a></li>
+<li class="breadcrumb-item"><a href="#">{{title}}</a></li>
+{% endblock breadcrumb-item %}
+
+{% block content %}
+<div class="alert alert-danger alert-dismissible">
+    <h5><i class="icon fas fa-ban"></i>Notificación</h5>
+    "¿Estás seguro de eliminar la unidad de medida con el 
+    <span  class="font-weight-bold">número de registro (id) {{object.id}}</span> y 
+    <span class="font-weight-bold">{{entity}} '{{object}}'</span>?"
+</div>
+{% endblock content%}
+{% block card-footer %}
+<form action="" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger btn-flat btnTest">
+        <i class="fas fa-trash"></i> Si, aceptar
+    </button>
+    <a href="{{ list_url }}" class="btn btn-info btn-flat btnTest">
+        <i class="fas fa-times"></i> Cancelar
+    </a>
+</form>
+{% endblock card-footer %}
+{% block scripts %}
+<script>
+    {% if form.errors%}
+        var errors = '';
+        {% for field in form %}
+            {% for error in field.errors %}
+                errors += '{{error}}\n'
+            {% endfor %}
+
+        {% endfor %}
+
+        Swal.fire({
+            title: 'Error!',
+            text: errors,
+            icon: 'error',
+        })
+
+    {% endif %}
+
+</script>  
+{% endblock scripts %} 
+
+    
+

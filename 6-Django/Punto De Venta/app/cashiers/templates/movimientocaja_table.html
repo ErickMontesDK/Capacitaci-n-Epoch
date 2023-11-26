@@ -1,0 +1,13 @@
+{% for movimiento in object_list %}
+<tr>
+    <td class="text-center">{{ movimiento.id }}</td>
+    <td class="text-center">{{ movimiento.caja }}</td>
+    <td class="text-center">{{ movimiento.monto_apertura }}</td>
+    <td class="text-center">{{ movimiento.monto_cierre }}</td>
+    <td class="text-center">{{ movimiento.fecha_hora_apertura }}</td>
+    <td class="text-center">{{ movimiento.fecha_hora_cierre }}</td>
+    <td class="text-center">{{ movimiento.vendedor_encargado }}</td>
+
+</tr>
+{% endfor %} 
+

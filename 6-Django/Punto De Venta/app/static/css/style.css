@@ -1,0 +1,8 @@
+.limit-text-cell {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 6; /* Número de líneas que se mostrarán */
+    max-height: 10em; /* Ajusta la altura máxima por línea multiplicada por el número de líneas */
+}

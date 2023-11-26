@@ -1,0 +1,20 @@
+{% for venta in object_list %}
+<tr>
+    <td class="text-center">{{ venta.id }}</td>
+    <td class="text-center">{{ venta.cliente }}</td>
+    <td class="text-center">{{ venta.movimiento_caja }}</td>
+    <td class="text-center">{{ venta.fecha }}</td>
+    <td class="text-center">${{ venta.total }}</td>
+    <td class="text-center">
+        <a href="{% url 'detalle_venta' venta=venta.id%}" type="button" class="btn btn-info btn-flat btn-sm">
+            <i class="fa fa-list" aria-hidden="true"></i>
+        </a>
+        <a href="{% url 'ticket' venta=venta.id%}" type="button" class="btn btn-success btn-flat btn-sm">
+            <i class="fas fa-receipt    "></i>
+        </a>
+        <button id="email_{{venta.id}}" type="button" class="btn btn-warning btn-flat btn-sm">
+            <i class="fas fa-mail-bulk    "></i>
+        </button>
+    </td>
+</tr>
+{% endfor %}  

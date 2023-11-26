@@ -1,0 +1,164 @@
+{% extends "list.html" %}
+
+{% block tools %}
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Filtros y herramientas</h4>
+    </div>
+    <div class="card-body">
+        <form action="" method="get">
+            <div class="row mb-2" id="filters">
+                <div class="col col-2 filter_input" >            
+                    <label for="filter-id">Id</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text p-1" >
+                            <input type="checkbox" id="filter_checkbox_id" aria-label="Checkbox for following id input">
+                            </div>
+                        </div>
+
+                            <input id="filter_input_id" class="form-control" 
+                            aria-label="id input with checkbox"
+                            placeholder="Ingrese id"
+                                type="number">
+                    </div>
+                </div>
+
+                <div class="col col-2 filter_input" >            
+                    <label for="filter-cliente">Cliente</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text p-1" >
+                            <input type="checkbox" id="filter_checkbox_cliente" aria-label="Checkbox for following cliente input">
+                            </div>
+                        </div>
+
+                            <input id="filter_input_cliente__nombre" class="form-control" 
+                            aria-label="cliente input with checkbox"
+                            placeholder="Ingrese cliente"
+                                type="text">
+                    </div>
+                </div> 
+
+                <div class="col col-2 filter_input" >            
+                    <label for="filter-fecha">Fecha</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text p-1" >
+                            <input type="checkbox" id="filter_checkbox_fecha" aria-label="Checkbox for following fecha input">
+                            </div>
+                        </div>
+
+                            <input id="filter_input_fecha" class="form-control" 
+                            aria-label="fecha input with checkbox"
+                            placeholder="Fecha en formato dd/mm/yyyy"
+                                type="text">
+                    </div>
+                </div> 
+            
+                <div class="col col-2 filter_input" >            
+                    <label for="filter-caja">Caja</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text p-1" >
+                            <input type="checkbox" id="filter_checkbox_caja" aria-label="Checkbox for following caja input">
+                            </div>
+                        </div>
+
+                            <input id="filter_input_caja" class="form-control" 
+                            aria-label="caja input with checkbox"
+                            placeholder="Ingrese caja"
+                                type="text">
+                    </div>
+                </div> 
+
+                <div class="col col-2 filter_input" >            
+                    <label for="filter-vendedor">Vendedor</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text p-1" >
+                            <input type="checkbox" id="filter_checkbox_vendedor" aria-label="Checkbox for following vendedor input">
+                            </div>
+                        </div>
+
+                            <input id="filter_input_movimiento_caja__vendedor_encargado__username" class="form-control" 
+                            aria-label="vendedor input with checkbox"
+                            placeholder="Ingrese vendedor"
+                                type="text">
+                    </div>
+                </div> 
+
+            </div>
+    
+            <div class="row flex justify-content-between">
+                <div class="col col-2">
+                    <button type="submit" class="btn btn-info" id="filter">
+                        Filtrar
+                    </button>
+                </div>
+                <div class="col-2">
+                    <a  class="btn btn-success" id="excel_import">
+                        Exportar Excel
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <div class="dropdown open col col-2" id="order_trigger">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                        Ordenar por
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="triggerId">
+                        {% for field in fields %}
+                        <button class="dropdown-item" value="{{field.name}}">{{field.name|capfirst}}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock tools %}
+
+{% block additional_scripts %}
+<script>
+const excel_download_url = '{% url 'descargar_excel' %}'
+const send_email = '{% url 'send_mail' %}'
+</script>
+<script>
+    $(document).ready(function(){
+        $('table').on('click',"button[id^='email_']",function(){
+            const buttonPressed = $(this)
+            const venta_id = parseInt($(this).attr('id').slice(6,))
+            $(buttonPressed).prop('disabled',true)
+            
+            $.ajax({
+                type: "GET",
+                url: send_email,
+                data: {'venta_id' : venta_id},
+                dataType: "json",
+            }).done(function(data){
+                $.toast({
+                        heading: 'Correo enviado',
+                        text: `${data.msg}`,
+                        showHideTransition: 'slide',
+                        icon: 'success'
+                    })
+                $(buttonPressed).prop('disabled',false)
+            }).fail(function(data){
+                $.toast({
+                        heading: 'Error al enviar',
+                        text: `${data.msg}`,
+                        showHideTransition: 'slide',
+                        icon: 'error'
+                    })
+                $(buttonPressed).prop('disabled',false)
+            });
+        })
+    })
+</script>
+{% endblock additional_scripts %}
+
+
+

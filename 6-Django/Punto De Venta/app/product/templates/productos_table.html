@@ -1,0 +1,21 @@
+{% for producto in object_list %}
+<tr >
+    <td class="text-center">{{ producto.id }}</td>
+    <td class="text-center">{{ producto.nombre }}</td>
+    <td class="text-center">{{ producto.marca }}</td>
+    <td class="text-center">{{ producto.departamento }}</td>
+    <td class="limit-text-cell">{{ producto.descripcion }}</td>
+    <td class="text-center">{{ producto.precio_unitario }}</td>
+    <td class="text-center">{{ producto.unidades }}</td>
+    <td class="text-center">{{ producto.existencia }}</td>
+    <td class="text-center">{{ producto.existencia_minima }}</td>
+    <td class="text-center">
+        <a href="{% url 'product_delete' producto.id %}" type="button" class="btn btn-danger btn-flat btn-sm">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+        <a href="{% url 'product_update' producto.id %}" type="button" class="btn btn-info btn-flat btn-sm">
+            <i class="fas fa-edit    "></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}   

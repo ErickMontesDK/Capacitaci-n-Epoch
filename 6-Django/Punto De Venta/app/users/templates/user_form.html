@@ -1,0 +1,52 @@
+{% extends "create_edit_form.html" %}
+{% load widget_tweaks %}
+
+{% block form_template %}
+<fieldset class="container">
+    <legend>Datos personales</legend>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">{{form.first_name.label}}</label>
+            {{form.first_name|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+        <div class="form-group col">
+            <label for="">{{form.last_name.label}}</label>
+            {{form.last_name|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">{{form.genero.label}}</label>
+            {{form.genero|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+        <div class="form-group col">
+            <label for="">{{form.email.label}}</label>
+            {{form.email|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+    </div>
+</fieldset>
+<hr>
+<fieldset class="container">
+    <legend>Datos de usuario</legend>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">{{form.username.label}}</label>
+            {{form.username|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+        <div class="form-group col">
+            <label for="">{{form.password.label}}</label>
+            {{form.password|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">{{form.image.label}}</label>
+            {{form.image|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+        <div class="form-group col">
+            <label for="">{{form.rol.label}}</label>
+            {{form.rol|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+    </div>
+</fieldset>
+{% endblock form_template %}

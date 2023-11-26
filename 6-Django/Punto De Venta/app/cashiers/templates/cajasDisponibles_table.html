@@ -1,0 +1,38 @@
+{% if movimientos_cajas %}
+    {% for caja in movimientos_cajas %}
+    <tr>
+        <td class="text-center">{{ caja.caja.id }}</td>
+        <td class="text-center">{{ caja.caja.nombre }}</td>
+
+        <td class="text-center">
+            <form>
+                <a href="{% url 'close_movement' catalogo_id=caja.caja.id pk=caja.movimiento %}" type="button" class="btn btn-open-cashier btn-danger btn-flat btn-sm">
+                    <i class="fas fa-door-closed    "></i>
+                    Cerrar caja
+                </a>
+                
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+{% else %}
+    {% for caja in cajas_disponibles %}
+    <tr>
+        <td class="text-center">{{ caja.id }}</td>
+        <td class="text-center">{{ caja.nombre }}</td>
+
+        <td class="text-center">
+            <form>
+                <a href="{% url 'create_movement' catalogo_id=caja.id%}" type="button" class="btn btn-open-cashier btn-success btn-flat btn-sm">
+                    <i class="fas fa-door-open    "></i>
+                    Abrir caja
+                </a>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+{% endif %}
+
+
+
+

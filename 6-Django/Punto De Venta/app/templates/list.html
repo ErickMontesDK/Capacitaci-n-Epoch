@@ -1,0 +1,81 @@
+{% extends "body.html" %}
+{% load static %}
+
+
+{% block breadcrumb-item %}
+<li class="breadcrumb-item"><a href="#">{{title}}</a></li>
+{% endblock breadcrumb-item %}
+
+{% block tools %}
+{% include "filters.html" %}
+{% endblock tools %}
+
+{% block content %}
+
+<div class="table-responsive">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table class="table table-striped mb-2" >
+            <thead>
+                <tr>
+                    {% for field in fields %}
+                        {% if field == fields|first %}
+                        <th style="width: 80px!important;" class="text-center">{{field.name|capfirst}}</th>
+                        {% else %}
+                        <th class="text-center">{{field.name|capfirst}}</th>
+                        {% endif %}
+                    
+                    {% endfor %}
+                    {% if not hideActionsColum %}
+                        <th style="width: 200px!important;" class="text-center">Acciones</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            
+            <tbody id="query_body">
+        
+            </tbody>
+        
+        </table>
+    </form>
+    
+</div>
+
+{% endblock content %}
+{% block card-footer %}
+<div class="row">
+    <div class="col col-8">
+        {% if not hideAddElement%}
+        <a href="{{add_element}}" type="button" class="btn btn-primary">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Agregar elemento
+        </a>
+        {% endif %}
+        
+    </div>
+    <div class="col col-4 d-flex justify-content-around">
+        Total de registros: <span id="total_records">{{total_records}}</span>
+        <ul class="pagination pagination-sm m-0 float-right" id="list_table_pagination">
+            <li class="page-item"><a class="page-link" href="#" id="previous-page">«</a></li>
+
+            <li class="page-item"><a class="page-link" href="#" id="next-page">»</a></li>
+        </ul>   
+    </div>
+
+</div>                                    
+{% endblock card-footer %}
+
+{% block scripts %}
+{% block additional_scripts %}
+
+{% endblock additional_scripts %}
+<script>
+    const baseUrl = "{{list_url}}";
+    let total_records = {{ total_records|default:0}};
+    
+</script>
+<script src="{% static 'js/paginationAndFilters.js' %}"></script>
+
+
+
+{% endblock scripts %}

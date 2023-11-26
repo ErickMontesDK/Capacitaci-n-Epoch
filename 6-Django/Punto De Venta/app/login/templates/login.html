@@ -1,0 +1,70 @@
+{% extends "index.html" %}
+{% load widget_tweaks %}
+{% block body %}
+    <body class="hold-transition login-page">
+        <div class="login-box">
+        <!-- /.login-logo -->
+            <div class="card card-outline card-primary">
+                <div class="card-header text-center">
+                    <h1><b>Punto de </b>Venta</h1>
+                </div>
+                <div class="card-body">
+                    <p class="login-box-msg">Escribe tus datos para iniciar sesión</p>
+            
+                    <form action="{% url 'login' %}" method="post">
+                        <input type="hidden" name="next" value="{{next}}">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            {{ form.username|add_class:'form-control'|attr:"autocomplete:off"|attr:"placeholder:Ingrese su username"}}
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            {{ form.password|add_class:'form-control'|attr:"autocomplete:off"|attr:"placeholder:Ingrese su contraseña"}}
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- /.col -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+                                    Ingresar
+                                </button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.login-box -->
+        <script>
+            {% if form.errors%}
+                var errors = '';
+                {% for field in form %}
+
+                    {% for error in field.errors %}
+                        errors += '{{error}}\n'
+                    {% endfor %}
+    
+                {% endfor %}
+    
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Usuario o contraseña incorrectos',
+                    icon: 'error',
+                })
+            {% endif %}
+        </script>
+    </body>
+{% endblock body %}
+

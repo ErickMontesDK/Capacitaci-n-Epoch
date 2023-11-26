@@ -1,0 +1,26 @@
+{% extends "create_edit_form.html" %}
+
+{% load widget_tweaks %}
+
+{% block form_template%}
+
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">{{form.monto_apertura.label}}</label>
+            {{form.monto_apertura|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+        <div class="form-group col">
+            <label for="">{{form.monto_cierre.label}}</label>
+            {{form.monto_cierre|add_class:'form-control'|attr:'autocomplete:off'|attr:'disabled:True'}}
+        </div>
+    </div>
+{% endblock form_template%}
+
+
+{% block save_button %}
+    <button type="submit" name="submit" class="btn btn-success btn-flat btnTest">
+        <i class="fas fa-door-open    "></i>
+        Abrir caja
+    </button>
+{% endblock save_button %}

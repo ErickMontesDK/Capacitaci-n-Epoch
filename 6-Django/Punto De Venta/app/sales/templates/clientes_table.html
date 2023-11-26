@@ -1,0 +1,20 @@
+{% for cliente in object_list %}
+<tr>
+    <td class="text-center">{{ cliente.id }}</td>
+    <td class="text-center">{{ cliente.nombre }}</td>
+    <td class="text-center">{{ cliente.apellido }}</td>
+    <td class="text-center">{{ cliente.telefono }}</td>
+    <td class="text-center">{{ cliente.email }}</td>
+    <td class="text-center">{{ cliente.rfc }}</td>
+    <td class="text-center">{{ cliente.razon_social }}</td>
+    <td class="text-center">{{ cliente.direccion }}</td>
+    <td class="text-center">
+        <a href="{% url 'clients_delete' cliente.id%}" type="button" class="btn btn-danger btn-flat btn-sm">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+        <a href="" type="button" class="btn btn-info btn-flat btn-sm">
+            <i class="fas fa-edit    "></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}  

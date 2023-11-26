@@ -1,0 +1,53 @@
+{% extends "create_edit_form.html" %}
+{% load widget_tweaks %}
+
+{% block form_template %}
+<fieldset class="container">
+    <legend>Información del producto</legend>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">{{form.nombre.label}}</label>
+            {{form.nombre|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+        <div class="form-group col">
+            <label for="">{{form.marca.label}}</label>
+            {{form.marca|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">{{form.departamento.label}}</label>
+            {{form.departamento|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+        <div class="form-group col">
+            <label for="">{{form.descripcion.label}}</label>
+            {{form.descripcion|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+    </div>
+</fieldset>
+<hr>
+<fieldset class="container">
+    <legend>Detalles de inventario</legend>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">{{form.precio_unitario.label}}</label>
+            {{form.precio_unitario|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+        <div class="form-group col">
+            <label for="">{{form.unidades.label}}</label>
+            {{form.unidades|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">{{form.existencia.label}}</label>
+            {{form.existencia|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+        <div class="form-group col">
+            <label for="">{{form.existencia_minima.label}}</label>
+            {{form.existencia_minima|add_class:'form-control'|attr:'autocomplete:off'}}
+        </div>
+    </div>
+</fieldset>
+
+{% endblock form_template %}

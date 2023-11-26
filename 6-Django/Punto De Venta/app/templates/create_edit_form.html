@@ -1,0 +1,61 @@
+{% extends "body.html" %}
+{% load widget_tweaks %}
+
+{% block breadcrumb-item %}
+<li class="breadcrumb-item"><a href="{{list_url}}">{{list}}</a></li>
+<li class="breadcrumb-item"><a href="#">{{title}}</a></li>
+{% endblock breadcrumb-item %}
+
+{% block content %}
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% block form_template%}
+    {% for field in form.visible_fields %}
+    <div class="form-group">
+        <label for="">{{field.label}}</label>
+        {{field|add_class:'form-control'|attr:'autocomplete:off'}}
+    </div>
+    {% endfor %}
+    {% endblock form_template%}
+    
+
+{% endblock content %}
+
+{% block card-footer %}
+    {% block save_button %}
+    <button type="submit" class="btn btn-primary btn-flat btnTest">
+        <i class="fas fa-save"></i> 
+        Guardar registro
+    </button>
+    {% endblock save_button %}
+</form>
+{% endblock card-footer %}
+
+
+{% block scripts %}
+<script>
+    {% if messages %}
+        var errors = '';
+        {% for message in messages %}
+            errors += '{{ message }}\n';
+        {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+
+    if (errors) {
+        Swal.fire({
+            title: 'Error!',
+            text: errors,
+            icon: 'error',
+        });
+    }
+</script>
+{% endblock scripts %}
