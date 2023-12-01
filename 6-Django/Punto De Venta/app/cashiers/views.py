@@ -8,7 +8,7 @@ from django.views.generic import ListView, DeleteView, UpdateView, CreateView
 from cashiers.forms.movimientocaja_form import MovimientoCajaForm
 from cashiers.forms.catalogocaja_form import CatalogoCajaForm
 from cashiers.models import *
-from shared.utils import BaseListView, getQueryFilterOption
+from shared.utils import BaseListView, ContextMixin, getQueryFilterOption
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from pytz import timezone as tz
@@ -20,128 +20,60 @@ class CatalogoCajaListView(BaseListView):
     title = 'Cajas'
     subtitle = 'Lista de cajas registradas'
     filter_range = ['id', 'nombre','estado_global','monto']
+    hideFields = ['monto']
     add_element_url = reverse_lazy('cashier_cat_add')
     list_url = reverse_lazy('cashier_cat_list')
-
-
-class MovimientoCajaListView(ListView):
+    
+    
+class MovimientoCajaListView(BaseListView):
     model = MovimientoCaja
-    template_name = "list.html"
+    template_name = 'list.html'
+    template_render = 'movimientocaja_table.html'
+    title = 'Movimientos de Caja'
+    subtitle = 'Lista de movimientos de cajas'
+    filter_range = ['id','monto_apertura','monto_cierre','fecha_hora_apertura','fecha_hora_cierre','caja','vendedor_encargado']
+    hideFields = ['monto_apertura', 'monto_cierre']
+    add_element_url = reverse_lazy('cashier_cat_add')
+    list_url = reverse_lazy('movements_list')
+    hideAddElement = True
+    hideActionsColum = True
 
-    def get_context_data(self, **kwargs):
-        fields = self.model._meta.get_fields()
-        fieldsToShow = ['id','monto_apertura','monto_cierre','fecha_hora_apertura','fecha_hora_cierre','caja','vendedor_encargado']
-        context = super().get_context_data(**kwargs)
-        context['fields'] = [{'name':field.name, 'type':field.get_internal_type(), 'choices':field.choices if hasattr(field, 'choices') else None} for field in fields if field.name in fieldsToShow] 
-        context["title"] = "Movimientos de caja" 
-        context['subtitle'] = "Lista de movimientos de cajas "
-        context['total_records'] = MovimientoCaja.objects.count()
-        context['model'] = 'movimiento de caja'
-        context['list_url'] = reverse_lazy('movements_list')
-        context['hideAddElement'] = True
-        context['hideActionsColum'] = True
-        return context
-    
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-    
-    def get_queryset(self):
-        page = int(self.request.GET.get('page', 1))
-        orderBy = self.request.GET.get('orderBy', 'id')
-        query = super().get_queryset().order_by(orderBy)
-        campos = self.request.GET
-                
-        filters, condicionalOr = getQueryFilterOption(campos)
-        
-        if filters != {}:
-            query = query.filter(**filters)
-
-        page_size = 10
-        
-        pagination = Paginator(query, page_size, 0, True)
-        page = pagination.page(page)
-        return page, query.count()
-    
-    def get(self, request, *args, **kwargs):
-        self.object_list, query_size = self.get_queryset() 
-        context = self.get_context_data(**kwargs) 
-        
-        if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-            template_name = "movimientocaja_table.html"
-            html = render_to_string(template_name, context)
-            return JsonResponse({"html": html, "query_size":query_size})
-        return super().get(request, *args, **kwargs)
-    
-    
-class CatCajaAbrirListView(ListView):
+class CatCajaAbrirListView(BaseListView):
     model = CatalogoCaja
-    template_name = "list.html"
-
+    template_name = 'list.html'
+    template_render = 'cajasDisponibles_table.html'
+    title = 'Administrador de cajas'
+    subtitle = 'Lista de cajas disponibles'
+    filter_range = ['id', 'nombre']
+    add_element_url = reverse_lazy('cashier_cat_add')
+    list_url = reverse_lazy('open_cashier')
+    hideAddElement = True
+    
     def get_context_data(self, **kwargs):
-        fields = self.model._meta.get_fields()
-        fieldsToShow = ['id', 'nombre']
         context = super().get_context_data(**kwargs)
-        context['fields'] = [{'name':field.name, 'type':field.get_internal_type(), 'choices':field.choices if hasattr(field, 'choices') else None} for field in fields if field.name in fieldsToShow] 
-        context["title"] = "Administrador de cajas" 
-        context['subtitle'] = "Lista de cajas disponibles"
-        context['total_records'] = CatalogoCaja.objects.count()
-        context['model'] = 'catálogo de caja'
-        context['list_url'] = reverse_lazy('open_cashier')
-        context['hideAddElement'] = True
-        context['cajas_disponibles'] = CatalogoCaja.objects.filter(estado_global='cerrado')
+        context["cajas_disponibles"] = CatalogoCaja.objects.filter(estado_global='cerrado')
         openCashiers = CatalogoCaja.objects.filter(estado_global='abierto')
         openCashierByUser = [{'caja':caja,"movimiento":caja.get_active_movement(self.user.id)} for caja in openCashiers if caja.get_active_movement(self.user.id) is not None]
         if openCashierByUser != []:
             context['movimientos_cajas'] = openCashierByUser
-
         return context
     
     def dispatch(self, request, *args, **kwargs):
         self.user = request.user
         return super().dispatch(request, *args, **kwargs)
     
-    def get_queryset(self):
-        campos = self.request.GET
-        page = int(self.request.GET.get('page', 1))
-        orderBy = self.request.GET.get('orderBy', 'id')
-        query = super().get_queryset().order_by(orderBy)
-                        
-        filters, condicionalOr = getQueryFilterOption(campos)
-        
-        if filters != {}:
-            query = query.filter(**filters)
-
-        page_size = 10
-        
-        pagination = Paginator(query, page_size, 0, True)
-        page = pagination.page(page)
-        return page, query.count()
-    
-    def get(self, request, *args, **kwargs):
-        self.object_list, query_size = self.get_queryset() 
-        context = self.get_context_data(**kwargs) 
-        
-        if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-            template_name = "cajasDisponibles_table.html"
-            html = render_to_string(template_name, context)
-            return JsonResponse({"html": html, "query_size":query_size})
-        return super().get(request, *args, **kwargs)    
-    
-
-
-class MovimientoCajaCreateView(CreateView):
+class MovimientoCajaCreateView(ContextMixin, CreateView):
     model = MovimientoCaja
     template_name = "abrir_caja.html"
-    success_url = reverse_lazy('dashboard')
     form_class = MovimientoCajaForm
+    success_url = reverse_lazy('pantalla_venta')
+    list_url = reverse_lazy('open_cashier')
+    title = 'Abrir caja'
+    list_name = 'Administrador de cajas'
     
     def get_context_data(self, **kwargs):        
         context = super().get_context_data(**kwargs)
-        context["title"] = "Abrir caja" 
         context['subtitle'] = "Abrir caja 'ID:{} - {}'".format(self.cashier.id, self.cashier)
-        context['list_url'] = reverse_lazy('open_cashier')
-        context['list'] = "Administrador de cajas"
-        context['cashier'] = self.cashier
         return context
     
     def get_form_kwargs(self):
@@ -166,6 +98,7 @@ class MovimientoCajaCreateView(CreateView):
     def form_invalid(self, form):
         messages.error(self.request, "La caja ya se encuentra abierta. Verifique que este cerrada y vuelva a intentarlo")
         return self.render_to_response(self.get_context_data(form=form))
+
 
 class MovimientoCajaUpdateView(UpdateView):
     model = MovimientoCaja
@@ -201,11 +134,9 @@ class MovimientoCajaUpdateView(UpdateView):
         return kwargs       
             
     def form_valid(self, form):
-        print('pandashow')
         monto_cierre = self.request.POST['monto_cierre']
         cerro_caja = self.cashier.cerrar_caja(monto_cierre)
         
-        print(self.cashier.estado_global)
         if cerro_caja:
             zona_horaria_mexico = tz('America/Mexico_City')
             hora_actual_mexico = datetime.now(zona_horaria_mexico)
@@ -231,21 +162,17 @@ class CatalogoCajaCreateView(CreateView):
         context['list_url'] = reverse_lazy('cashier_cat_list')
         context['list'] = "Catálogo de cajas"
         return context
-    
-class CatalogoCajaDeleteView(DeleteView):
+
+class CatalogoCajaDeleteView(ContextMixin, DeleteView):
     model = CatalogoCaja
-    template_name = "delete_record.html"
+    template_name = 'delete_record.html'
     success_url = reverse_lazy('cashier_cat_list')
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Borrar caja" 
-        context['subtitle'] = f"Eliminar '{self.object}' de registros de cajas"
-        context['list_url'] = reverse_lazy('cashier_cat_list')
-        context['list'] = "Cajas"
-        context['entity'] = 'caja'
-        return context
-    
+    list_url = reverse_lazy('cashier_cat_list')
+    title = 'Borrar caja'
+    subtitle = f'Eliminar registro de cajas'
+    list_name = 'Cajas'   
+
+
 class CatalogoCajaUpdateView(UpdateView):
     model = CatalogoCaja
     template_name = "create_edit_form.html"

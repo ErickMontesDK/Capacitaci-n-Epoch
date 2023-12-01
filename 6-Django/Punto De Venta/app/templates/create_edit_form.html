@@ -35,6 +35,7 @@
 
 {% block scripts %}
 <script>
+    let errors=""
     {% if messages %}
         var errors = '';
         {% for message in messages %}

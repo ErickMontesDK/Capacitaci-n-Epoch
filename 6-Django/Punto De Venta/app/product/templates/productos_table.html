@@ -1,5 +1,12 @@
 {% for producto in object_list %}
-<tr >
+{% if producto.existencia == 0 %}
+<tr class="bg-danger">
+{% elif producto.existencia <= producto.existencia_minima %}
+<tr class="bg-warning">
+{% else %}
+<tr>
+{% endif %}
+
     <td class="text-center">{{ producto.id }}</td>
     <td class="text-center">{{ producto.nombre }}</td>
     <td class="text-center">{{ producto.marca }}</td>

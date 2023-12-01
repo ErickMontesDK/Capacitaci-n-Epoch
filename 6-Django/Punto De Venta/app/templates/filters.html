@@ -1,73 +1,44 @@
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Filtros</h4>
-    </div>
-    <div class="card-body">
-        <form action="" method="get">
-            <div class="row mb-2" id="filters">
-                {% for field in fields %}
-                <div class="col col-2 filter_input" >            
-                    <label for="filter-{{field.name}}">{{field.name|capfirst}}</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text p-1" >
-                            <input type="checkbox" id="filter_checkbox_{{field.name}}" aria-label="Checkbox for following {{field.name}} input">
-                            </div>
-                        </div>
+{% for field in fields  %}
+{% if field in filters %}
+<div class="col col-2 filter_input" >            
+    <label for="filter-{{field.name}}">{{field.name|capfirst}}</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_{{field.name}}" aria-label="Checkbox for following {{field.name}} input">
+            </div>
+        </div>
 
-                        {% if field.choices %}
-                            <select id="filter_input_{{field.name}}" class="form-control" aria-label="{{ field.name }} input with checkbox">
-                                <option value="">Seleccione {{ field.name }}</option>
-                                {% for choice in field.choices %}
-                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                {% endfor %}
-                            </select>
-                        {% else %}
-
-                            <input id="filter_input_{{field.name}}" class="form-control" 
-                            aria-label="{{field.name}} input with checkbox"
-                            placeholder="Ingrese {{field.name}}"
-                            {% if field.type == 'CharField' %}
-                                type="text"
-                            {% elif field.type == 'EmailField' %}
-                                type="email"
-                            {% elif field.type == 'IntegerField' %}
-                                type="number"
-                            {% elif field.type == 'DateField' %}
-                                type="date"
-                            {% elif field.type == 'DecimalField' %}
-                                type="number"
-                                step="any"
-                            {% elif field.type == 'BigAutoField' %}
-                                type="number"
-                            {% endif %}
-                            >
-                        {% endif %}
-                    </div>
-                </div>
+        {% if field.choices %}
+            <select id="filter_input_{{field.name}}" class="form-control" aria-label="{{ field.name }} input with checkbox">
+                <option value="">Seleccione {{ field.name }}</option>
+                {% for choice in field.choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                 {% endfor %}
-            </div>
-    
-            <div class="row flex justify-content-between">
-                <div class="col col-2">
-                    <button type="submit" class="btn btn-info">
-                        Filtrar
-                    </button>
-                </div>
+            </select>
+        {% else %}
 
-                <div class="dropdown open col col-2" id="order_trigger">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                        Ordenar por
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="triggerId">
-                        {% for field in fields %}
-                        <button class="dropdown-item" value="{{field.name}}">{{field.name|capfirst}}</button>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-        </form>
+            <input id="filter_input_{{field.name}}" class="form-control" 
+            aria-label="{{field.name}} input with checkbox"
+            placeholder="Ingrese {{field.name}}"
+            {% if field.type == 'CharField' %}
+                type="text"
+            {% elif field.type == 'EmailField' %}
+                type="email"
+            {% elif field.type == 'IntegerField' %}
+                type="number"
+            {% elif field.type == 'DateField' or field.type == 'DateTimeField' %}
+                type="date"
+            {% elif field.type == 'DecimalField' %}
+                type="number"
+                step="any"
+            {% elif field.type == 'BigAutoField' %}
+                type="number"
+            {% endif %}
+            >
+        {% endif %}
     </div>
 </div>
+{% endif %}
+
+{% endfor %}

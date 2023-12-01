@@ -464,5 +464,59 @@
                         ]
                   }
             }
+      },
+      "a1f": {
+            "fecha_registro": "18-10-2023",
+            "porcentaje": 25,
+            "datos_personales": {
+                  "nombre": "",
+                  "fecha_de_nacimiento": "01-01-2001",
+                  "genero": "sdas"
+            }
+      },
+      "3a8": {
+            "fecha_registro": "19-10-2023",
+            "porcentaje": 100,
+            "datos_personales": {
+                  "nombre": "Juan lopez",
+                  "fecha_de_nacimiento": "10-10-2000",
+                  "genero": "m"
+            },
+            "datos_contacto": {
+                  "telefonos": [
+                        "4434595984"
+                  ],
+                  "email": "mail@mail.com"
+            },
+            "domicilio": {
+                  "calle_numero": "av. madero #155",
+                  "ciudad": "uruapan",
+                  "entidad": "michoac\u00e1n"
+            },
+            "hobbies": {
+                  "deportes": [
+                        "ciclismo",
+                        "natacion"
+                  ],
+                  "pel\u00edculas": [
+                        "django",
+                        "scream"
+                  ],
+                  "musica": {
+                        "generos": {
+                              "rock": [
+                                    "persiana"
+                              ]
+                        },
+                        "grupos": [
+                              {
+                                    "nombre": "soda stereo",
+                                    "canciones": [
+                                          "sadsd"
+                                    ]
+                              }
+                        ]
+                  }
+            }
       }
 }

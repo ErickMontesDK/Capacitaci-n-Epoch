@@ -1,17 +1,16 @@
-from datetime import datetime
 from decimal import Decimal
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DeleteView, CreateView, TemplateView, View
+from django.views.generic import ListView, DeleteView, CreateView, TemplateView, UpdateView
+from business.models import Negocio
 from cashiers.models import MovimientoCaja
 from product.models import Producto
 from sales.forms.clients_form import ClienteForm
-from sales.models import Cliente, DetalleVenta, Venta
-from shared.utils import BaseListView, getQueryFilterOption
+from sales.models import RAZON_SOCIAL_CHOICES, Cliente, DetalleVenta, Venta
+from shared.utils import BaseListView, ContextMixin, getQueryFilterOption
 from users.models import User
 from django.core.paginator import Paginator
-from django.template.loader import render_to_string
 from django.db.models import Q, F
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
@@ -19,93 +18,56 @@ from reportlab.lib.pagesizes import *
 from reportlab.lib.units import mm
 from reportlab.platypus import *
 from reportlab.lib.styles import (ParagraphStyle, getSampleStyleSheet)
-from django.shortcuts import render
-from weasyprint import CSS, HTML
-from django.template.loader import get_template
 from reportlab.lib import colors
 import django_excel as excel
-from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import EmailMessage
 
-
-
-class ClienteListView(ListView):
+class ClienteListView(BaseListView):
     model = Cliente
-    template_name = "list.html"
+    template_name = 'clientes_list.html'
+    template_render = 'clientes_table.html'
+    title = 'Clientes'
+    subtitle = 'Lista de clientes registrados'
+    filter_range = ['id', 'nombre','apellido','telefono','email','rfc','razon_social','direccion']
+    add_element_url = reverse_lazy('clients_add')
+    list_url = reverse_lazy('clients_list')
     
     def get_context_data(self, **kwargs):
-        fields = self.model._meta.get_fields()
-        
-        ALL_FIELDS_MODEL = [{'name':field.name, 'type':field.get_internal_type(), 'choices':field.choices if hasattr(field, 'choices') else None} for field in fields] 
-        fieldsInModel = ALL_FIELDS_MODEL
         context = super().get_context_data(**kwargs)
-        context['fields'] = fieldsInModel
-        context["title"] = "Clientes" 
-        context['subtitle'] = "Lista de clientes registrados"
-        context['total_records'] = Cliente.objects.count()
-        context['add_element'] = reverse_lazy('clients_add')
-        context['model'] = 'cliente'
-        context['list_url'] = reverse_lazy('clients_list')
+        context["razones_sociales"] = RAZON_SOCIAL_CHOICES 
         return context
-    
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-    
-    def get_queryset(self):
-        page = int(self.request.GET.get('page', 1))
-        orderBy = self.request.GET.get('orderBy', 'id')
-        query = super().get_queryset().order_by(orderBy)
-        campos = self.request.GET
-                
-        filters, condicionalOr = getQueryFilterOption(campos)
-        
-        if filters != {}:
-            query = query.filter(**filters)
 
-        page_size = 10
-        
-        pagination = Paginator(query, page_size, 0, True)
-        page = pagination.page(page)
-        return page, query.count()
-    
-    def get(self, request, *args, **kwargs):
-        self.object_list, query_size = self.get_queryset() # Aquí llamas al método get_queryset
-        context = self.get_context_data(**kwargs) 
-        
-        if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-            template_name = "clientes_table.html"
-            html = render_to_string(template_name, context)
-            return JsonResponse({"html": html, "query_size":query_size})
-        return super().get(request, *args, **kwargs)
-
-class ClienteDeleteView(DeleteView):
+class ClienteDeleteView(ContextMixin, DeleteView):
     model = Cliente
     template_name = "delete_record.html"
     success_url = reverse_lazy("clients_list")
+    title = "Borrar cliente"
+    subtitle = f"Eliminar registros de cliente"
+    list_name = "Clientes"
+    list_url = reverse_lazy('clients_list') 
+
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Borrar cliente" 
-        context['subtitle'] = f"Eliminar '{self.object}' de registros de cliente"
-        context['list_url'] = reverse_lazy('clients_list')
-        context['list'] = "Clientes"
-        context['entity'] = 'cliente'
-        return context
-    
-class ClienteCreateView(CreateView):
+class ClienteCreateView(ContextMixin, CreateView):
     model = Cliente
     template_name = "clients_form.html"
     form_class = ClienteForm
     success_url = reverse_lazy('clients_list')
+    title = "Nuevo cliente"
+    subtitle = "Agregar nuevo registro de cliente"
+    list_name = "Clientes"
+    list_url = reverse_lazy('clients_list')
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Nuevo cliente" 
-        context['subtitle'] = "Agregar nuevo registro de cliente"
-        context['list_url'] = reverse_lazy('clients_list')
-        context['list'] = "Clientes"
-        return context
+class ClienteUpdateView(ContextMixin, UpdateView):
+    model = Cliente
+    template_name = "clients_form.html"
+    form_class = ClienteForm
+    success_url = reverse_lazy('clients_list')
+    title = "Editar Cliente"
+    subtitle = "Editar registro de cliente"
+    list_name = "Clientes"
+    list_url = reverse_lazy('clients_list')
+    
     
 class PantallaVentaView(TemplateView):
     template_name = "pantalla_venta.html"
@@ -210,18 +172,19 @@ def generar_pdf(request, venta):
     venta_obj = get_object_or_404(Venta, pk=venta)
     cliente = venta_obj.cliente
     detalles_venta = DetalleVenta.objects.filter(venta = venta_obj)
+    negocio = Negocio.objects.first() if Negocio.objects.exists() else {}  
         
     informaciónNegocio = (
-        "Sucursal: Morelia<br/>"
-        "Dirección: Av. Lázaro Cárdenas 123, Col. Chapultepec"
-        "CP 58140, Morelia, Michoacán<br/>"
+        f"Dirección: {negocio.direccion}"
+        "<br/>"
         "Unidad: 001. "
-        "Teléfono: (443) 123-4567"
+        f"Teléfono: {negocio.telefono}. "
+        f"E-mail: {negocio.email}"
     )
     msg = f"""
     ¿Comó te atendimos?<br/>
     ¿Necesitas ayuda ahora?<br/>
-    800 000 1111<br/>
+    {negocio.telefono}<br/>
     ---------------------------<br/>
     ¡Gracias por tu compra!<br/>
     ---------------------------<br/>
@@ -285,7 +248,7 @@ def generar_pdf(request, venta):
     resumenTabla.setStyle(tableStyle)
     
     altura_total = page_size[1]
-    title_text = "Torre Bazar"
+    title_text = f"{negocio.nombre}"
     title_height = 6*mm
     
     paragraph.wrapOn(p, page_size[0], page_size[1])
@@ -328,6 +291,7 @@ def generar_pdf(request, venta):
     alturaAcumulada -= mensajeHeight
     paragraphMsg.drawOn(p, (page_size[0] - paragraphMsg.width) / 2, alturaAcumulada)
     
+    p.setTitle(f'Ticket de compra')
     p.showPage()
     p.save()
     return response
@@ -343,6 +307,24 @@ class VentaListView(BaseListView):
     list_url = reverse_lazy('reporte_ventas')
     hideAddElement = True
     
+    def get_queryset(self):
+        page = int(self.request.GET.get('page', 1))
+        orderBy = self.request.GET.get('orderBy', 'id')
+        campos = self.request.GET
+        
+        filters, condicionalOr = getQueryFilterOption(campos)
+        user = self.user
+        if user.rol == "vendedor":
+            query = ListView.get_queryset(self).filter(movimiento_caja__vendedor_encargado__id=user.id).filter(**filters).filter(condicionalOr).order_by(orderBy)
+        else:
+            query = ListView.get_queryset(self).filter(**filters).filter(condicionalOr).order_by(orderBy)
+        
+        page_size = 10
+        pagination = Paginator(query, page_size, 0, True)
+        page = pagination.page(page)
+        return page, query.count()
+    
+    
 class DetalleVentaListView(TemplateView):
     template_name = "detalle_venta.html"
     
@@ -354,6 +336,9 @@ class DetalleVentaListView(TemplateView):
         context['venta'] = self.venta
         context['cliente'] = self.cliente
         context['detalles_venta'] = self.detalles_venta
+        
+        if Negocio.objects.exists():
+            context['negocio'] = Negocio.objects.first()
         return context
     
     def dispatch(self, request, *args, **kwargs):
@@ -383,37 +368,40 @@ def pdf_view(request, venta_id):
     venta = get_object_or_404(Venta, id=venta_id)
     cliente = get_object_or_404(Cliente, id=venta.cliente.id)
     detalles_venta = DetalleVenta.objects.filter(venta=venta)
-    movimiento_caja = get_object_or_404(MovimientoCaja, id=venta.movimiento_caja.id)
-    vendedor = get_object_or_404(User, id=movimiento_caja.vendedor_encargado.id)
+    negocio = Negocio.objects.first() if Negocio.objects.exists() else {}  
 
-    # Crear un objeto HttpResponse con el tipo de contenido para PDF
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'inline; filename="detalle_venta_{venta_id}.pdf"'
     page_size = letter
-    # Crear un objeto PDF con ReportLab
+
     p = canvas.Canvas(response, pagesize=page_size)
 
-    # Agregar contenido al PDF
     p.setFont("Helvetica-Bold", 14)
 
-    # Encabezado
     p.drawString(50, 750, "Detalle de Venta")
-    p.drawString(400, 750, "Torre Bazar")
+    p.drawString(400, 750, f"{negocio.nombre}")
     p.setFont("Helvetica", 10)
-    p.drawString(400, 730, "Av. Lázaro Cárdenas")
-    p.drawString(400, 710, "Colonia Chapultepec Sur")
-    p.drawString(400, 690, "Morelia, Michoacán")
-
-    # Saludo al cliente
-    p.drawString(50, 650, f"Estimad@ {cliente} (email:{cliente.email if cliente.email else 'Sin definir'})")
+    
+    informacionNeg = Paragraph(f"{negocio.direccion}")
+    informacionNeg.wrapOn(p,45*mm,1000)
+    y_position = 740-informacionNeg.height
+    informacionNeg.drawOn(p,400,y_position)
+    
+    contactoNeg = Paragraph(f"{negocio.email}, {negocio.telefono}")
+    contactoNeg.wrapOn(p,45*mm,1000)
+    y_position -= contactoNeg.height
+    contactoNeg.drawOn(p,400,y_position)
+    
+    y_position -= 20
+    p.drawString(50, y_position, f"Estimad@ {cliente} ({cliente.email if cliente.email else 'Sin definir'})")
     p.setFillColor(colors.gray)
-    p.drawString(50, 630, "Aquí están sus detalles de compra. Gracias por su compra.")
+    y_position -= 20
+    p.drawString(50, y_position, "Aquí están sus detalles de compra. Gracias por su compra.")
     p.setFillColor(colors.black)
-
+    y_position -= 10
     p.line(0,620,page_size[0],620)
 
-    # Datos de la venta
-    y_position = 600
+    y_position -= 20 
     
     facturacionStyle = TableStyle([
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.gray),
@@ -425,18 +413,18 @@ def pdf_view(request, venta_id):
     datos_facturacion = [
         ['ID de Venta', 'Fecha y hora', 'Razón social', 'Dirección de facturación'],
         [venta.id,
-        venta.fecha.strftime('%d de %B del %Y a las %H:%M'), 
+        venta.fecha.strftime('%d de %m del %Y a las %H:%M'), 
         cliente.razon_social if cliente.razon_social else 'Sin definir',
         cliente.direccion if cliente.direccion else 'Sin definir']
         ]
+    
     facturacion_table = Table(datos_facturacion, colWidths=[50, 200,140,140])
     facturacion_table.setStyle(facturacionStyle)
-    ancho,alto = facturacion_table.wrapOn(p,page_size[0],page_size[1])
-    y_position -= alto
+    ancho_tabla, alto_tabla = facturacion_table.wrapOn(p,page_size[0],page_size[1])
+    y_position -= alto_tabla
+    
     facturacion_table.drawOn(p,50,y_position)
 
-    # Detalles de productos
-    y_position = 480
     data = [["Clave", "Producto", "Cantidad", "Importe", "Descuento"]]
 
     for detalle in detalles_venta:
@@ -448,7 +436,7 @@ def pdf_view(request, venta_id):
             f"{detalle.descuento}%"
         ])
 
-    # Configurar estilo de la tabla
+
     style = TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.black),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
@@ -458,32 +446,129 @@ def pdf_view(request, venta_id):
         ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke),
     ])
 
-    # Crear la tabla
-    productos_table = Table(data, colWidths=[40,250,60,70,70])
+    y_position -= 20
+    tamaño_tabla_disponible = y_position-50
+    
+    new_data = []
+    previous_table = None
+    previous_width, previous_height = 0, 0
+    
+    
+    productos_table = Table(data, colWidths=[40,250,60,70,70], splitByRow=True,repeatRows=1)
     productos_table.setStyle(style)
-
-    # Posicionar la tabla en el PDF
-    ancho_tabla, altura_tabla = productos_table.wrapOn(p, 400, 700)
+    partes = productos_table.split(400, tamaño_tabla_disponible)
     
-    if y_position - altura_tabla < 50: 
+    if partes==[]:
+        partes.append(productos_table)
+    
+    ancho, alto = partes[0].wrapOn(p, 400, tamaño_tabla_disponible)
+    y_position -= alto
+    partes[0].drawOn(p, 50, y_position)
+    
+    if (y_position-20)>50:
+        y_position = y_position-20 
+    else: 
+        y_position = page_size[1]-50
         p.showPage()
-        y_position = 750  
-
     
-    productos_table.drawOn(p, 50, 450)
-    y_position -= altura_tabla
-    # Totales
-    p.drawString(400, y_position, f"Subtotal: ${venta.subtotal}")
-    y_position -= 20
-    p.drawString(400, y_position, f"Descuento: ${venta.descuento}")
-    y_position -= 20
-    p.setFont("Helvetica-Bold", 10)
-    p.drawString(400, y_position, f"Total: ${venta.total}")
-    p.setFont("Helvetica", 10)
-    y_position -= 20
-    p.drawString(400, y_position, f"Método de pago: {venta.metodo_pago.capitalize()}")
+    if(len(partes)>1):
+        partes = partes[1:]
+        lista_restante = []
+        
+        for i in range(0, len(partes)):
+            
+            if i==0:
+                lista_restante = partes[i]._cellvalues
+            else:
+                lista_restante.extend(partes[i]._cellvalues[1:]) 
+                
+        productos_table = Table(lista_restante, colWidths=[40,250,60,70,70], splitByRow=True,repeatRows=1)
+        productos_table.setStyle(style)
+        partes = productos_table.split(400, page_size[1])
+        
+        for indice,parte in enumerate(partes):
+            y_position = page_size[1]-50
+            ancho, alto = parte.wrapOn(p, 400, page_size[1])
+            y_position -= alto
+            parte.drawOn(p, 50, y_position)
+            
+            if indice == len(partes) - 1:
+                if y_position < 70:
+                    p.showPage()
+                else:
+                    y_position -= 20
+            else:
+                p.showPage()
 
-    # Guardar el PDF generado
+        
+        
+        
+        
+    # print(partes[0])
+    
+    # for i in range(0,len(data)):
+        
+    #     new_data.append(data[i])
+            
+    #     productos_table = Table(new_data, colWidths=[40,250,60,70,70], splitByRow=True,repeatRows=1)
+    #     productos_table.setStyle(style)
+    #     ancho_tabla, altura_tabla = productos_table.wrapOn(p, 400, tamaño_tabla_disponible)
+        
+    #     #Cabe la tabla sin dividir página
+    #     if data == new_data and (y_position - altura_tabla) > 50:
+    #         y_position -= altura_tabla
+    #         productos_table.drawOn(p, 50, y_position)
+            
+    #     #No cabe toda la tabla, hay que dividirla
+    #     elif y_position < altura_tabla:
+    #         previous_table.drawOn(p, 50, y_position- previous_height)
+    #         p.showPage()
+    #         y_position = page_size[1]-50
+            
+    #         new_data = data[0:1]
+    #         new_data.append(data[i])
+    #         tamaño_tabla_disponible = page_size[1]
+    #     elif i == len(data)-1 and y_position > altura_tabla: 
+    #         y_position -= altura_tabla
+    #         productos_table.drawOn(p, 50, y_position)
+            
+    #     previous_table = productos_table
+    #     previous_width, previous_height = ancho_tabla, altura_tabla
+        
+    # y_position -= 50
+    # p.drawString(400, y_position, f"Subtotal: ${venta.subtotal}")
+    # y_position -= 20
+    # p.drawString(400, y_position, f"Descuento: ${venta.descuento}")
+    # y_position -= 20
+    # p.setFont("Helvetica-Bold", 12)
+    # p.drawString(400, y_position, f"Total: ${venta.total}")
+    # p.setFont("Helvetica", 12)
+    # y_position -= 20
+    # p.drawString(400, y_position, f"Método de pago: {venta.metodo_pago.capitalize()}")
+    p.setFont("Helvetica", 12)
+    estilos = getSampleStyleSheet()
+    resumen = [
+        f"Subtotal: ${venta.subtotal}",
+        f"Descuento: ${venta.descuento}",
+        f"<b>Total: ${venta.total}</b>",  # Usa etiquetas HTML para texto en negrita
+        f"Método de pago: {venta.metodo_pago.capitalize()}"
+    ]
+    style = ParagraphStyle("estilo", 
+            parent=estilos["BodyText"],
+            fontSize = 11,
+            )
+
+    resumenPara = Paragraph("<br/><br/>".join(resumen), style)
+    resumenPara.wrapOn(p, 55*mm, page_size[1] )
+    
+    if y_position - resumenPara.height < 50:
+        p.showPage()
+        y_position = page_size[1]-50
+        
+    resumenPara.drawOn(p, 400, y_position-resumenPara.height)
+
+    # Guardar el PDF
+    p.setTitle(f'Factura de compra')
     p.showPage()
     p.save()
 
@@ -495,7 +580,7 @@ def download_excel(request):
     filters, condicionalOr = getQueryFilterOption(campos)
     
     query = Venta.objects.filter(**filters).filter(condicionalOr).order_by(orderBy)
-        
+    print(query.query)
     excel_data = []
     VentaFields = [{'name': 'id', 'type': 'BigAutoField', 'choices': None}, {'name': 'cliente', 'type': 'ForeignKey', 'choices': None}, {'name': 'movimiento_caja', 'type': 'ForeignKey', 'choices': None}, {'name': 'fecha', 'type': 'DateTimeField', 'choices': None}, {'name': 'total', 'type': 'DecimalField', 'choices': None}]
     excel_data.append([field.get('name').capitalize() for field in VentaFields ])

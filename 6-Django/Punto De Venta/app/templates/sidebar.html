@@ -11,8 +11,8 @@
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-            <img src="{{request.user.get_image}}" class="img-circle elevation-2" alt="User Image">
+            <div class="image w-25">
+            <img src="{{request.user.get_image}}" class="img-circle elevation-2 rounded-circle h-75 w-100  m-0" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block font-weight-bold">{{request.user.username|capfirst}}</a>
@@ -26,7 +26,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
-                
+                {% if  request.user.rol == 'administrador' %}
                 <li class="nav-item">
                     <a href="{% url 'users_list' %}" class="nav-link">
                         <i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -93,30 +93,58 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'open_cashier' %}" class="nav-link">
-                        
-                        <p>
-                            <i class="fa-solid fa-cash-register"></i>
-                            Cajas - vendedor</p>
+                    <a href="{% url 'status_negocio' %}" class="nav-link">
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        <p>Información de negocio</p>
                     </a>
                 </li>
+                {% endif %}
+                
+                
+                
+                {% if  request.user.rol == "vendedor" %}
+                {% if request.user.get_movimiento_caja == None %}
                 <li class="nav-item">
-                    <a href="{% url 'reporte_ventas' %}" class="nav-link">
-                        <p>Reportes</p>
+                    <a href="{% url 'open_cashier' %}" class="nav-link">
+                
+                        <p>
+                            <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+                            Abrir Caja
+                        </p>
                     </a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'open_cashier' %}" class="nav-link">
                 
-                
+                        <p>
+                            <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+                            Cerrar Caja
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{% url 'pantalla_venta' %}" class="nav-link">
-                        <p>Pantalla de Venta - vendedor</p>
+                        <p>
+                            <i class="fa-solid fa-cash-register"></i>
+                            Pantalla de Venta
+                        </p>
                     </a>
                 </li>
+                
+                {% endif %}
+                
+                {% endif %}
                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <p>Reportes - vendedor</p>
+                    <a href="{% url 'reporte_ventas' %}" class="nav-link">
+                        <p>
+                            <i class="fas fa-chart-pie    "></i>
+                            Reportes de ventas
+                        </p>
                     </a>
                 </li>
+                
+                
                 
             </ul>
         </nav>

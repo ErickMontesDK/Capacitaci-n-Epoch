@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 RAZON_SOCIAL_CHOICES = (
     ('Persona Física', 'Persona Física'), 
@@ -21,7 +22,7 @@ METODO_DE_PAGO = (
 class Cliente(models.Model):
     nombre = models.CharField(max_length=20, blank=False, null=False, verbose_name="Nombre")
     apellido = models.CharField(max_length=30, blank=False, null=False, verbose_name="Apellido")
-    telefono = models.CharField(max_length=13, null=True, blank=True, verbose_name="Teléfono")
+    telefono = PhoneNumberField(null=True, blank=True, unique=True, verbose_name="Teléfono")
     email = models.EmailField(null=False, blank=False,default="dk.erickmontes.coding@gmail.com", verbose_name="Email")
     rfc = models.CharField(max_length=13, null=True, blank=True, verbose_name="R.F.C.")
     razon_social = models.CharField(max_length=36, null=True, blank=True, choices=RAZON_SOCIAL_CHOICES, verbose_name="Razón social")

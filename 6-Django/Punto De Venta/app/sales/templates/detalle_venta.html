@@ -4,13 +4,18 @@
 <div class="container" id="detalle_venta">
     <div class="row">
         <h1 class="col-8">Detalle de Venta</h1>
+        {% if negocio %}
         <div class="col-4">
-            <h2>Torre Bazar</h2>
-            <p>Av. Lázaro Cardenas
-                Colonia Chapultepec Sur
-                Morelia, Michoacán
+            <h2>{{negocio.nombre|capfirst}}</h2>
+            <p>{{negocio.direccion}}
+                <br>
+                Contacto: {{negocio.telefono}}
+                {{negocio.email}}
             </p>
+
         </div>
+        {% endif %}
+        
     </div>
     <div class="row mb-4">
         <div class="col">

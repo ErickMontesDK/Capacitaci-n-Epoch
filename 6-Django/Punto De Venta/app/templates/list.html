@@ -7,7 +7,41 @@
 {% endblock breadcrumb-item %}
 
 {% block tools %}
-{% include "filters.html" %}
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Filtros</h4>
+    </div>
+    <div class="card-body">
+        <form action="" method="get">
+            <div class="row mb-2" id="filters">
+                {% block filters_input %}
+                {% include "filters.html" %}
+                {% endblock filters_input %}
+            </div>
+            {% block submit_options %}
+            <div class="row flex justify-content-between">
+                <div class="col col-2">
+                    <button type="submit" class="btn btn-info">
+                        Filtrar
+                    </button>
+                </div>
+
+                <div class="dropdown open col col-2" id="order_trigger">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                        Ordenar por
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="triggerId">
+                        {% for field in fields %}
+                        <button class="dropdown-item" value="{{field.name}}">{{field.name|capfirst}} <span>(asc)</span> </button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endblock submit_options %}
+        </form>
+    </div>
+</div>
 {% endblock tools %}
 
 {% block content %}
@@ -69,9 +103,14 @@
 {% block additional_scripts %}
 
 {% endblock additional_scripts %}
+
 <script>
     const baseUrl = "{{list_url}}";
     let total_records = {{ total_records|default:0}};
+
+    window.addEventListener("popstate", function(e) {
+        window.location.reload();
+    });
     
 </script>
 <script src="{% static 'js/paginationAndFilters.js' %}"></script>

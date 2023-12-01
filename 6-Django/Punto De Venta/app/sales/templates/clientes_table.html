@@ -12,7 +12,7 @@
         <a href="{% url 'clients_delete' cliente.id%}" type="button" class="btn btn-danger btn-flat btn-sm">
             <i class="fa fa-trash" aria-hidden="true"></i>
         </a>
-        <a href="" type="button" class="btn btn-info btn-flat btn-sm">
+        <a href="{% url 'clients_update' cliente.id%}" type="button" class="btn btn-info btn-flat btn-sm">
             <i class="fas fa-edit    "></i>
         </a>
     </td>

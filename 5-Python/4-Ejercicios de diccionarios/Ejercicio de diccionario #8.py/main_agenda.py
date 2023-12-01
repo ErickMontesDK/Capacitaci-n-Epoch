@@ -1,8 +1,6 @@
-from registrar_contacto import registrar_contacto_cicle
-from listar_contactos import getContactList
-from consultar_contacto import imprimir_contacto
-from registro_modificacion_contacto import ContactManager
-# from modificar_contacto import modificar_contacto
+from functions.listar_contactos import getContactList
+from functions.consultar_contacto import imprimir_contacto
+from functions.registro_modificacion_contacto import ContactManager
 
 print("\nBIENVENIDO A LA AGENDA DE CONTACTOS\n")
 

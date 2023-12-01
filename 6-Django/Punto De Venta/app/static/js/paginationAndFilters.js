@@ -10,7 +10,7 @@ $(document).ready(function(){
     if (typeof excel_download_url !== 'undefined') {
         // Usar la variable excel_download_url como quieras
         excel_url = excel_download_url
-      } 
+    } 
         
     const createPagination = (total_records) =>{
         const records_per_page = 10
@@ -49,14 +49,28 @@ $(document).ready(function(){
         $.ajax({
             url: urlWithParams,
             type: "GET",
-            dataType: 'json'
+            dataType: 'json',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
         }).done(function(data){  
             $('#query_body').html(data.html)
             createPagination(data.query_size)
             showSelectedPage(page)
 
         }).fail(function(data){
-            alert("Error: no se proceso correctamente la solicitud")
+            try {
+                // intentar parsear el texto de la respuesta como JSON
+                var json = $.parseJSON(data.responseText);
+                $.toast({
+                    heading: 'Error',
+                    text: json.message,
+                    icon: 'error'
+                })
+            } catch (e) {
+                // manejar el error de parseo
+                console.log("No se pudo parsear la respuesta como JSON");
+            }
         })
     }
 
@@ -91,10 +105,21 @@ $(document).ready(function(){
         viewPageControls()
     })
     $('#order_trigger .dropdown-menu .dropdown-item').click(function () {
-        orderParameter = $(this).val()
+        button_activated = $(this) 
+        orderParameter = $(button_activated).val()
         page = 1
 
-        orderParam = `orderBy=${encodeURIComponent(orderParameter)}`+"&"
+        // orderParam = `orderBy=${encodeURIComponent(orderParameter)}`+"&"
+        let new_orderParam = `orderBy=${encodeURIComponent(orderParameter)}`+"&"
+        
+        if(new_orderParam == orderParam){
+            orderParam = `orderBy=-${encodeURIComponent(orderParameter)}`+"&"
+            $(button_activated).children('span').text('(asc)')
+        }
+        else{
+            orderParam = new_orderParam
+            $(button_activated).children('span').text('(desc)')
+        }
         showSelectedPage(page);
         chargeData(page, orderParameter)
         viewPageControls()
@@ -103,7 +128,7 @@ $(document).ready(function(){
     $('form').submit(function (event) {
         
         event.preventDefault()
-        const filtersInputs = $(this).children('#filters').children()
+        const filtersInputs = $(this).children('#filters').find('.filter_input')
         let queryParams = []
         
         $.each(filtersInputs, function(index, fieldFilter){

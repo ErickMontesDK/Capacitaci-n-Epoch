@@ -1,0 +1,92 @@
+{% extends "list.html" %}
+
+{% block filters_input %}
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-id">Id</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_id" aria-label="Checkbox for following id input">
+            </div>
+        </div>
+
+            <input id="filter_input_id" class="form-control" 
+            aria-label="Id input with checkbox"
+            placeholder="Ingrese id"
+                type="number"
+            >
+    </div>
+</div>
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-nombre">Nombre</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_nombre_user" aria-label="Checkbox for following nombre input">
+            </div>
+        </div>
+
+            <input id="filter_input_nombre_user" class="form-control" 
+            aria-label="Nombre input with checkbox"
+            placeholder="Ingrese nombre"
+                type="text"
+            >
+    </div>
+</div>
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-username">Username</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_username" aria-label="Checkbox for following username input">
+            </div>
+        </div>
+
+            <input id="filter_input_username" class="form-control" 
+            aria-label="Nombre input with checkbox"
+            placeholder="Ingrese username"
+                type="text"
+            >
+    </div>
+</div>
+
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-rol">Rol</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_rol" aria-label="Checkbox for following rol input">
+            </div>
+        </div>
+
+        <select id="filter_input_rol" class="form-control" aria-label="rol input with checkbox">
+            <option value="">Seleccione rol</option>
+                <option value="administrador">Administrador</option>
+                <option value="vendedor">Vendedor</option>
+        </select>
+    </div>
+</div>
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-genero">Género</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_genero" aria-label="Checkbox for following genero input">
+            </div>
+        </div>
+
+        <select id="filter_input_genero" class="form-control" aria-label="Genero input with checkbox">
+            <option value="">Seleccione genero</option>
+                <option value="m">Masculino</option>
+                <option value="f">Femenino</option>
+                <option value="o">Otro</option>
+        </select>
+    </div>
+</div>
+
+{% endblock filters_input %}

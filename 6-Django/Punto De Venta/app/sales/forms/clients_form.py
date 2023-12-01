@@ -27,10 +27,11 @@ class ClienteForm(ModelForm):
                     'placeholder':'Escriba sus apellidos',
                 }
             ),
-            'teléfono':TextInput(
-                attrs={
-                    'placeholder':'Escriba su teléfono',
-                }
+            'telefono':TextInput(
+                    attrs={
+                        'placeholder':'Escriba su teléfono',
+                        'pattern':'^\\+?[1-9]\\d{1,14}$' # Validar que sean 10 dígitos
+                    }
             ),
             'email':EmailInput(
                 attrs={
@@ -44,7 +45,7 @@ class ClienteForm(ModelForm):
             ),
             'direccion':Textarea(
                 attrs={
-                    'placeholder':'Seleccione la razón social',
+                    'placeholder':'Escriba su dirección',
                     'rows': 3
                 }
             ),

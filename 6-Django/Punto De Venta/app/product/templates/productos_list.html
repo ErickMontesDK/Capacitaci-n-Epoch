@@ -1,168 +1,167 @@
 {% extends "list.html" %}
 
-{% block tools %}
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Filtros</h4>
-    </div>
-    <div class="card-body">
-        <form action="" method="get">
-            <div class="row mb-2" id="filters">
-                <div class="col col-2 filter_input" >            
-                    <label for="filter-id">Id</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text p-1" >
-                            <input type="checkbox" id="filter_checkbox_id" aria-label="Checkbox for following id input">
-                            </div>
-                        </div>
+{% block filters_input %}
 
-                            <input id="filter_input_id" class="form-control" 
-                            aria-label="id input with checkbox"
-                            placeholder="Ingrese id"
-                                type="number">
-                    </div>
-                </div>
-
-                <div class="col col-2 filter_input" >            
-                    <label for="filter-nombre">Nombre</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text p-1" >
-                            <input type="checkbox" id="filter_checkbox_nombre" aria-label="Checkbox for following nombre input">
-                            </div>
-                        </div>
-
-                            <input id="filter_input_nombre" class="form-control" 
-                            aria-label="nombre input with checkbox"
-                            placeholder="Ingrese id"
-                                type="text">
-                    </div>
-                </div> 
-
-                <div class="col col-2 filter_input" >            
-                    <label for="filter-marca">Marca</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text p-1" >
-                            <input type="checkbox" id="filter_checkbox_marca" aria-label="Checkbox for following marca input">
-                            </div>
-                        </div>
-
-                            <input id="filter_input_marca" class="form-control" 
-                            aria-label="marca input with checkbox"
-                            placeholder="Ingrese marca"
-                                type="text">
-                    </div>
-                </div> 
-            
-                <div class="col col-2 filter_input" >            
-                    <label for="filter-departamento">Departamento</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text p-1" >
-                            <input type="checkbox" id="filter_checkbox_departamento" aria-label="Checkbox for following departamento input">
-                            </div>
-                        </div>
-
-                            <input id="filter_input_departamento" class="form-control" 
-                            aria-label="departamento input with checkbox"
-                            placeholder="Ingrese departamento"
-                                type="text">
-                    </div>
-                </div> 
-
-                <div class="col col-2 filter_input" >            
-                    <label for="filter-precio_min">Precio min</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text p-1" >
-                            <input type="checkbox" id="filter_checkbox_precio_min" aria-label="Checkbox for following precio_min input">
-                            </div>
-                        </div>
-
-                            <input id="filter_input_precio_min" class="form-control" 
-                            aria-label="precio_min input with checkbox"
-                            placeholder="Precio minimo"
-                                type="number" step="any">
-
-                    </div>
-                </div> 
-                <div class="col col-2 filter_input" >            
-                    <label for="filter-precio_max">Precio max</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text p-1" >
-                            <input type="checkbox" id="filter_checkbox_precio_max" aria-label="Checkbox for following precio_max input">
-                            </div>
-                        </div>
-
-                            <input id="filter_input_precio_max" class="form-control" 
-                            aria-label="precio_max input with checkbox"
-                            placeholder="Ingrese precio_max"
-                                type="number" step="any">
-                    </div>
-                </div> 
-
-                <div class="col col-2 filter_input" >            
-                    <label for="filter-existencia">Existencia</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text p-1" >
-                            <input type="checkbox" id="filter_checkbox_existencia" aria-label="Checkbox for following existencia input">
-                            </div>
-                        </div>
-
-                            <input id="filter_input_existencia" class="form-control" 
-                            aria-label="existencia input with checkbox"
-                            placeholder="Ingrese existencia"
-                                type="number">
-                    </div>
-                </div>
-
-                <div class="col col-2 filter_input" >            
-                    <label for="filter-existencia_minima">Existencia minima</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text p-1" >
-                            <input type="checkbox" id="filter_checkbox_existencia_minima" aria-label="Checkbox for following existencia minima input">
-                            </div>
-                        </div>
-
-                        <select id="filter_input_existencia_minima" class="form-control" aria-label="Existencia minima input with checkbox">
-                            <option value="">Seleccione</option>
-                            <option value='True'>Existencia suficiente</option>
-                            <option value='False'>Existencia crítica</option>
-                        </select>
-
-                    </div>
-                </div>
+<div class="col col-2 filter_input" >            
+    <label for="filter-id">Id</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_id" aria-label="Checkbox for following id input">
             </div>
-    
-            <div class="row flex justify-content-between">
-                <div class="col col-2">
-                    <button type="submit" class="btn btn-info">
-                        Filtrar
-                    </button>
-                </div>
+        </div>
 
-                <div class="dropdown open col col-2" id="order_trigger">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                        Ordenar por
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="triggerId">
-                        {% for field in fields %}
-                        <button class="dropdown-item" value="{{field.name}}">{{field.name|capfirst}}</button>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-        </form>
+            <input id="filter_input_id" class="form-control" 
+            aria-label="id input with checkbox"
+            placeholder="Ingrese id"
+                type="number">
     </div>
 </div>
-{% endblock tools %}
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-nombre">Nombre</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_nombre" aria-label="Checkbox for following nombre input">
+            </div>
+        </div>
+
+            <input id="filter_input_nombre" class="form-control" 
+            aria-label="nombre input with checkbox"
+            placeholder="Ingrese id"
+                type="text">
+    </div>
+</div> 
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-marca">Marca</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_marca" aria-label="Checkbox for following marca input">
+            </div>
+        </div>
+
+            <input id="filter_input_marca" class="form-control" 
+            aria-label="marca input with checkbox"
+            placeholder="Ingrese marca"
+                type="text">
+    </div>
+</div> 
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-departamento">Departamento</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_departamento" aria-label="Checkbox for following departamento input">
+            </div>
+        </div>
+
+            <input id="filter_input_departamento" class="form-control" 
+            aria-label="departamento input with checkbox"
+            placeholder="Ingrese departamento"
+                type="text">
+    </div>
+</div> 
+
+<div class="col-3">
+    <label for="precios">Precio</label>
+    <div class="row" id="precios">
+        <div class="col filter_input" >            
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text p-1" >
+                    <input type="checkbox" id="filter_checkbox_precio_min" aria-label="Checkbox for following precio_min input">
+                    </div>
+                </div>
+        
+                    <input id="filter_input_precio_min" class="form-control" 
+                    aria-label="precio_min input with checkbox"
+                    placeholder="Minimo"
+                    min="0"
+                    type="number" step="any">
+        
+            </div>
+        </div> 
+        <span><i class="fa-solid fa-arrows-left-right-to-line"></i></span>
+        <div class="col filter_input" >            
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text p-1" >
+                    <input type="checkbox" id="filter_checkbox_precio_max" aria-label="Checkbox for following precio_max input">
+                    </div>
+                </div>
+        
+                    <input id="filter_input_precio_max" class="form-control" 
+                    aria-label="precio_max input with checkbox"
+                    placeholder="Máximo"
+                        type="number" step="any">
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="col-3">
+    <label for="existencia">Existencia</label>
+    <div class="row" id="existencia">
+        <div class="col filter_input" >            
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text p-1" >
+                    <input type="checkbox" id="filter_checkbox_existencia_min" aria-label="Checkbox for following existencia_min input">
+                    </div>
+                </div>
+        
+                    <input id="filter_input_existencia_min" class="form-control" 
+                    aria-label="existencia_min input with checkbox"
+                    placeholder="Minimo"
+                    min="0"
+                    type="number" step="any">
+        
+            </div>
+        </div> 
+        <span><i class="fa-solid fa-arrows-left-right-to-line"></i></span>
+        <div class="col filter_input" >            
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text p-1" >
+                    <input type="checkbox" id="filter_checkbox_existencia_max" aria-label="Checkbox for following existencia_max input">
+                    </div>
+                </div>
+        
+                    <input id="filter_input_existencia_max" class="form-control" 
+                    aria-label="existencia_max input with checkbox"
+                    placeholder="Máximo"
+                        type="number" step="any">
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-existencia_minima">Abasto</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_existencia_minima" aria-label="Checkbox for following existencia minima input">
+            </div>
+        </div>
+
+        <select id="filter_input_existencia_minima" class="form-control" aria-label="Existencia minima input with checkbox">
+            <option value="">Seleccione</option>
+            <option value='True'>Existencia suficiente</option>
+            <option value='False'>Existencia crítica</option>
+        </select>
+
+    </div>
+</div>
+
+            
+
+
+{% endblock filters_input %}
 
 
 

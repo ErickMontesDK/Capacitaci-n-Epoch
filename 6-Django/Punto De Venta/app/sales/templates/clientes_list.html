@@ -1,0 +1,60 @@
+{% extends "list.html" %}
+
+{% block filters_input %}
+<div class="col col-2 filter_input" >            
+    <label for="filter-id">Id</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_id" aria-label="Checkbox for following id input">
+            </div>
+        </div>
+
+            <input id="filter_input_id" class="form-control" 
+            aria-label="Id input with checkbox"
+            placeholder="Ingrese id"
+                type="number"
+            >
+    </div>
+</div>
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-nombre">Nombre</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_nombre_user" aria-label="Checkbox for following nombre input">
+            </div>
+        </div>
+
+            <input id="filter_input_nombre_cliente" class="form-control" 
+            aria-label="Nombre input with checkbox"
+            placeholder="Ingrese nombre"
+                type="text"
+            >
+    </div>
+</div>
+
+
+<div class="col col-2 filter_input" >            
+    <label for="filter-razon_social">Razón social</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text p-1" >
+            <input type="checkbox" id="filter_checkbox_razon_social" aria-label="Checkbox for following razon_social input">
+            </div>
+        </div>
+
+        <select id="filter_input_razon_social" class="form-control" aria-label="razon_social input with checkbox">
+            <option value="">Seleccione la razón social</option>
+            {% for choice in razones_sociales %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+
+    
+
+{% endblock filters_input %}

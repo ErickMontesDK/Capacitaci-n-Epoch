@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
     'login',
     "widget_tweaks",
     "users",
     "product",
     "sales",
-    "cashiers"
+    "cashiers",
+    "business"
 ]
 
 MIDDLEWARE = [
@@ -158,3 +160,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
+
+PHONENUMBER_DB_FORMAT = 'NATIONAL' 
+PHONENUMBER_DEFAULT_REGION = 'MX'

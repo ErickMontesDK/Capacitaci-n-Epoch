@@ -1,5 +1,108 @@
 {% extends "body.html" %}
 {% load static %}
 {% block content %}
-    Hello world
+
+<div class="row d-flex align-items-stretch">
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ventas_hoy}}</h3>
+                {% if request.user.rol == "administrador" %}
+                <p>Ventas de hoy</p>
+                {% else %}
+                <p>Tus ventas de hoy</p>
+                {% endif %}
+                
+            </div>
+            <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <a href="{% url 'reporte_ventas' %}" class="small-box-footer">
+                Ir a Reporte de Ventas
+                <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3><sup style="font-size: 20px">$</sup>{{ganancias_hoy}}</h3>
+                {% if request.user.rol == "administrador" %}
+                <p>Ganancias de hoy</p>
+                {% else %}
+                <p>Tus ganancias de hoy</p>
+                {% endif %}
+            </div>
+            <div class="icon">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+            </div>
+            {% if request.user.rol == "administrador" %}
+            <a href="{% url 'movements_list' %}" class="small-box-footer">
+                Ir a Movimientos de Caja
+                <i class="fas fa-arrow-circle-right"></i>
+            </a>
+            {% else %}
+            <div  class="small-box-footer">
+                <i class="fas fa-money-bill    "></i>
+            </div>
+            {% endif %}
+            
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{productos_agotados}}</h3>
+                <p>Productos escasos o agotados</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            </div>
+            
+            {% if request.user.rol == "administrador" %}
+            <a href="{% url 'products_list' %}" class="small-box-footer">
+                Ir a Productos
+                    <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            {% else %}
+            <div  class="small-box-footer">
+                <i class="fas fa-box-open    "></i>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-6 ">
+        <div class="small-box bg-purple ">
+            <div class="inner">
+                {% if request.user.rol == "administrador" %}
+                <h3>{{cajas_abiertas}}</h3>
+                <p>Cajas abiertas</p>
+
+                {% elif cajas_abiertas == False %}
+                <h3>Ninguna</h3>
+                <p>caja abierta por ahora</p>
+
+                {% else %}
+                <h3>{{cajas_abiertas}}</h3>
+                <p>caja abierta</p>
+
+
+                {% endif %}
+                
+            </div>
+            <div class="icon ">
+                <i class="fa-solid fa-cash-register"></i>
+            </div>
+            <a href="{% url 'cashier_cat_list' %}" class="small-box-footer">
+                Ir a Cajas
+                <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    </div>
+
 {% endblock content %}

@@ -17,4 +17,4 @@ class User(AbstractUser):
         movimiento_activos = MovimientoCaja.objects.filter(vendedor_encargado = self, fecha_hora_cierre__isnull=True)
         movimiento_activo = movimiento_activos.order_by('-fecha_hora_apertura').first()
         
-        return movimiento_activo
+        return movimiento_activo if movimiento_activo else None
